@@ -16,8 +16,9 @@
 
 ### 一. 源码提交
 
-- 参赛者需将源码提交至活动对应的GitHub仓库，目录已按照云平台划分，请参赛者在所选云平台对应的目录下，创建自己的目录，并将自己的代码上传至对应目录下，GitHub仓库地址：https://github.com/LITEOS/LiteOS_Connect_to_3rd_Cloud  
-  以OneNET为例，在 *liteos_to_onenet* 目录下创建自己的目录，命名格式为 “**liteos_onenet_作品名**”，然后将代码提交到该目录下。
+- 参赛者需将源码提交至活动对应的GitHub仓库，目录已按照云平台划分，请参赛者在所选云平台对应的目录下，创建自己的目录，并将自己的代码上传至对应目录下，GitHub仓库地址：https://github.com/LITEOS/LiteOS_Connect_to_3rd_Cloud    
+
+  以OneNET为例，在 *liteos_to_onenet* 目录下创建自己的目录，命名格式为 “**liteos_onenet_作品名**”，然后将代码提交到该目录下。
 
 - 请遵循Hawei LiteOS编码规范，具体可参考：https://github.com/xiaoyusu/LiteOS_Connect_to_3rd_Cloud/blob/master/Coding_Style.md
 
@@ -27,7 +28,8 @@
 
 ### 三. 视频上传
 
-参赛者需要录制编译、烧写、对接平台、数据上传及下发操作演示的流程视频，录制方法不限，需要体现主要操作步骤，清晰完整地介绍一整套流程，本地压缩后上传到LiteOS论坛，地址：
+参赛者需要录制编译、烧写、对接平台、数据上传及下发操作演示的流程视频，录制方法不限，需要体现主要操作步骤，清晰完整地介绍一整套流程，本地压缩后上传到LiteOS论坛，地址：http://developer.huawei.com/ict/forum/forum.php?mod=forumdisplay&fid=400045
+
 1. 在华为开发者论坛的Huawei LiteOS板块下，发布新帖
 2. 帖子命名格式：【寻找IoT达人】LiteOS对接云平台作品展示，xxxxx作品名
    举例：【寻找IoT达人】LiteOS对接云平台作品展示，智能温湿度中控
