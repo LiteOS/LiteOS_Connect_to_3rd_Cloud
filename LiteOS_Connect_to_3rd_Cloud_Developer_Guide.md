@@ -1,6 +1,4 @@
-#寻找IoT达人 第一期#
-
-#Huawei LiteOS对接第三方云平台#
+# 寻找IoT达人第一期 Huawei LiteOS对接第三方云平台
 
 **项目提交需求模板**
 
