@@ -16,7 +16,9 @@
 
 ### 一. 源码提交
 
-- 参赛者需将源码提交至活动的GitHub[工程](https://github.com/LITEOS/LiteOS_Connect_to_3rd_Cloud "LITEOS/LiteOS_Connect_to_3rd_Cloud")工程目录下，地址：https://github.com/LITEOS/LiteOS_Connect_to_3rd_Cloud
+- 参赛者需将源码提交至活动对应的GitHub工程目录下，地址：https://github.com/LITEOS/LiteOS_Connect_to_3rd_Cloud
+
+- 参赛者需按照工程下
 
 - 请遵循Hawei LiteOS编码规范，具体可参考：https://github.com/xiaoyusu/LiteOS_Connect_to_3rd_Cloud/blob/master/Coding_Style.md
 
