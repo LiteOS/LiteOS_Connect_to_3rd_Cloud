@@ -1,7 +1,7 @@
 # 一、背景和介绍
 
 ## 1、公司/团队介绍
-[洪业](https://github.com/ianhom)，嵌入式爱好者，有多年嵌入式开发经验。
+[洪业](https://github.com/ianhom)，嵌入式爱好者。
 
 ## 2、项目介绍    
 - 嵌入式终端通过**LiteOS**连接到**腾讯云物联网平台**。    
@@ -24,17 +24,22 @@
 
 ## 1、 创建新产品
 - 登录[腾讯云平台官网](https://cloud.tencent.com/)，注册/登录账号，进入控制台，如图所示，在云产品中选择“**物联网通信**”
+- ![创建新产品](https://github.com/ianhom/LiteOS_Connect_to_3rd_Cloud/blob/master/liteos_to_tencentcloud/liteos_tencentcloud_basic/pic/add_pro.png?raw=true)
 - 点击**创建产品**
 - 选择服务器**所属地区**，当前只有广州可选。
 - 输入**产品名称**，该名称是一类产品的定义，例如“LiteOS_Temperature_Sensor”
 - 选择**认证方式**，本例采用**密钥认证**
 - 可选填入**产品描述**
-- 点击**创建**即可完成新产品建立。
-- ![创建新产品]()
+- 点击**创建**即可完成新产品建立，此时将获得**productID**，该ID是终端通过MQTT访问云端的重要凭证之一。
+- ![创建新产品](https://github.com/ianhom/LiteOS_Connect_to_3rd_Cloud/blob/master/liteos_to_tencentcloud/liteos_tencentcloud_basic/pic/productID.png?raw=true)
 
 ## 2、 创建新设备
 - 上述的新产品是创建一个产品类别，在该类别下需要创建具体的设备
 
+- ![创建新产品](https://github.com/ianhom/LiteOS_Connect_to_3rd_Cloud/blob/master/liteos_to_tencentcloud/liteos_tencentcloud_basic/pic/add_dev.png?raw=true)
+- ![创建新产品](https://github.com/ianhom/LiteOS_Connect_to_3rd_Cloud/blob/master/liteos_to_tencentcloud/liteos_tencentcloud_basic/pic/add_dev2.png?raw=true)
+- ![创建新产品](https://github.com/ianhom/LiteOS_Connect_to_3rd_Cloud/blob/master/liteos_to_tencentcloud/liteos_tencentcloud_basic/pic/add_dev3.png?raw=true)
+- ![创建新产品](https://github.com/ianhom/LiteOS_Connect_to_3rd_Cloud/blob/master/liteos_to_tencentcloud/liteos_tencentcloud_basic/pic/add_dev4.png?raw=true)
 # 四、关键源代码解析
 
 ## 1、程序文件介绍
