@@ -50,7 +50,7 @@
 ## 4、 终端设备的配置
 - 在终端平台上完成LiteOS+LwIP+MQTT的移植。
 - 腾讯云平台通过[MQTT](http://mqtt.org/)接入，所以这里需要在硬件终端上实现MQTT Client，具体配置参数如下：        
-   - **MQTT服务器地址**：**iotcloud-mqtt.gz.tencentdevices.com**或**111.230.189.156**        
+   - **MQTT服务器地址**：**iotcloud-mqtt.gz.tencentdevices.com**或**111.230.189.156**，端口号为**1883**。        
    - **ClientID**：productID + 设备名称，例如：DXJQTLK47XSensor1           
    - **User Name**：ClientID + app ID + connect ID + timestamp，例如：DXJQTLK47XSensor1;21010406;12365;1526229718     
    - **Password**：decode(User Name + 设备密钥)+";hmacsha1",例如：b21b6c729215d2baa934878812d8947e15202618;hmacsha1     
@@ -58,7 +58,8 @@
    - **Subscribe topic**：producID/设备名称/control，例如：DXJQTLK47X/Sensor1/control     
    
 - ![创建新产品](https://github.com/ianhom/LiteOS_Connect_to_3rd_Cloud/blob/master/liteos_to_tencentcloud/liteos_tencentcloud_basic/pic/code.png?raw=true) 
-- **注意上述User Name和Password可通过[工具]()自动生成**。
+- **注意上述User Name和Password可通过[Python工具](https://github.com/ianhom/LiteOS_Connect_to_3rd_Cloud/blob/master/liteos_to_tencentcloud/liteos_tencentcloud_basic/tool/UsrName_Psk.py)自动生成**。
+- ![创建新产品](https://github.com/ianhom/LiteOS_Connect_to_3rd_Cloud/blob/master/liteos_to_tencentcloud/liteos_tencentcloud_basic/pic/tool.png?raw=true) 
 
 ## 5、 终端设备上线和数据上传
 - 完成上述配置后，即可运行终端设备，连接云端服务器，发送数据。
@@ -76,5 +77,5 @@
 # 四、 总结
 - 得益于LiteOS完善的软件和活跃的开发者氛围，IoT方向的移植工作可以很顺利的完成，感谢@[夏晓文](https://github.com/xiaowenxia)关于LwIP+MQTT的移植分享。
 - 该项目实现了最基本的云平台对接和数据上传，期待其他小伙伴们在该平台上的精彩作品:smile:
-- 腾讯云的消息队列提供了丰富的[API](https://cloud.tencent.com/document/api/406/5853)，可以在web，APP端直接获取物联网上传的数据和下发控制报文，此项工具将持续完善，为大家呈现更完整有趣的应用。
+- 腾讯云的消息队列提供了丰富的[API](https://cloud.tencent.com/document/api/406/5853)，可以在web，APP端直接获取物联网上传的数据和下发控制报文，此项工作将持续完善，为大家呈现更完整有趣的应用。
 - LiteOS日益完善、强大，期待LiteOS全面解锁IoT！
