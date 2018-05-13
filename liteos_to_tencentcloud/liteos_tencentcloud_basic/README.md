@@ -4,7 +4,7 @@
 [洪业](https://github.com/ianhom)，嵌入式爱好者。
 
 ## 2、项目介绍    
-- 嵌入式终端通过**LiteOS**连接到**腾讯云物联网平台**。    
+- 嵌入式终端通过**LiteOS**连接到**腾讯云物联网平台**,实现基础的连接和数据传输。    
 
 # 二、项目内容
 ## 1、方案说明
@@ -56,85 +56,23 @@
    - **Password**：decode(User Name + 设备密钥)+";hmacsha1",例如：b21b6c729215d2baa934878812d8947e15202618;hmacsha1     
    - **Publish topic**：producID/设备名称/event，例如：DXJQTLK47X/Sensor1/event    
    - **Subscribe topic**：producID/设备名称/control，例如：DXJQTLK47X/Sensor1/control     
-     
-- **注意上述User Name和Password可通过工具自动生成**。
+   
+- ![创建新产品](https://github.com/ianhom/LiteOS_Connect_to_3rd_Cloud/blob/master/liteos_to_tencentcloud/liteos_tencentcloud_basic/pic/code.png?raw=true) 
+- **注意上述User Name和Password可通过[工具]()自动生成**。
 
 ## 5、 终端设备上线和数据上传
-- 完成上述配置后，即可运行终端设备，连接云端服务器，发送数据
+- 完成上述配置后，即可运行终端设备，连接云端服务器，发送数据。
+- ![创建新产品](https://github.com/ianhom/LiteOS_Connect_to_3rd_Cloud/blob/master/liteos_to_tencentcloud/liteos_tencentcloud_basic/pic/online.png?raw=true) 
+- 可以在设备页面检测设备是否上线。
+- ![创建新产品](https://github.com/ianhom/LiteOS_Connect_to_3rd_Cloud/blob/master/liteos_to_tencentcloud/liteos_tencentcloud_basic/pic/msg_rcv1.png?raw=true)
+- 可以通过消息队列来查看终端上传的数据。
+- ![创建新产品](https://github.com/ianhom/LiteOS_Connect_to_3rd_Cloud/blob/master/liteos_to_tencentcloud/liteos_tencentcloud_basic/pic/msg_rcv2.png?raw=true) 
+- 上图为设备上线后的状态报告。
+- ![创建新产品](https://github.com/ianhom/LiteOS_Connect_to_3rd_Cloud/blob/master/liteos_to_tencentcloud/liteos_tencentcloud_basic/pic/msg_rcv3.png?raw=true) 
+- 上图为终端发送的数据，payload部分为base64加密后的格式。
+- ![创建新产品](https://github.com/ianhom/LiteOS_Connect_to_3rd_Cloud/blob/master/liteos_to_tencentcloud/liteos_tencentcloud_basic/pic/msg_rcv4.png?raw=true)
+- 通过base64解密即可得到数据原文。
 
-
-# 四、关键源代码解析
-
-## 1、程序文件介绍
-Starup - 启动文件
-user - 用户文件
-drivers - 开发板BSP驱动
-stm32f4xx_std_periph - STM32标准库
-liteos/cmsis - LiteOS cmsis接口
-liteos/kernel - LiteOS核心文件
-liteos/arch - LiteOS主要文件
-Lwip - Lwip协议栈
-MQTT - MQTT库
-Aliyun - 阿里云平台相关文件
-
-## 2、程序主函数说明
-（1）内核初始化、硬件初始化、协议栈初始化
-（2）创建三个任务：一个是设备状态和数据采集，一个是DHCP处理，另外一个是MQTT数据收发。
-
-## 3、关键代码说明
-（1）RS485相关代码做了特殊处理，因为在收发切换的时候会意外接收到一个数据。并且切换的时候最后一个数据会发送失败。
-（2）LOS_MemAllocAlign函数（bestfit_little目录下）没有真正实现对齐，所以在Los_task.c文件中做了特殊处理。
-
-## 4、上传数据代码详解
-（1）把从设备采集到的数据按Alink协议的格式进行打包
-sprintf(param,  "{\"T1\":%3.1f,\"T2\":%3.1f,\"T3\":%3.1f,\"Tin\":%3.1f,\"H\":%3.1f,\"Lux\":%0.0f,\"CO2\":%d,\"O2\":%3.1f,\"NH3\":%d,\"PM25\":%d,\"LightSwitch\":%d,\"SpraySwitch\":%d,\"CommState\":%d}",				g_T1,g_T2,g_T3,g_Tin,g_H,g_Lux,g_CO2,g_O2,g_NH3,g_PM25,g_LightSwitch,g_SpraySwitch,g_CommState);
-int msg_len = sprintf(msg_pub, ALINK_BODY_FORMAT, ++SendCount, param,ALINK_METHOD_PROP_POST);
-（2）把数据推送到云端
- rc = IOT_MQTT_Publish(pclient, ALINK_TOPIC_PROP_POST, &topic_msg);
-
-## 3、下发命令代码详解
-（1）执行数据处理，接收信息反馈
-IOT_MQTT_Yield(pclient, 200);	
-（2）订阅反馈
-iotx_mqtt_topic_info_pt ptopic_info = (iotx_mqtt_topic_info_pt) msg->msg;
-//下行数据
-if(ptopic_info->topic_len==50)
-{
-        DeviceState = 3;
-       char *ptr = strstr(ptopic_info->payload, "LightSwitch");
-		if(ptr!=NULL)
-		{
-				ptr = (char *)&ptr[strlen("LightSwitch")+2];
-				int len = strcspn(ptr,"}");
-				ptr[len]='\0';					
-				g_LightSwitch = atoi(ptr);	
-				printf("LightSwitch=%d\r\n",g_LightSwitch);
-		}
-		else
-		{			
-			ptr = strstr(ptopic_info->payload, "SpraySwitch");
-			if(ptr!=NULL)
-			{
-					ptr = (char *)&ptr[strlen("SpraySwitch")+2];
-					int len = strcspn(ptr,"}");
-					ptr[len]='\0';					
-					g_SpraySwitch = atoi(ptr);		
-					printf("SpraySwitch=%d\r\n",g_SpraySwitch);
-		 }
-	 }				
-}
-
-	 	
-# 五、产品调试
-
-## 1、硬件调试
-（1）RS485接口接入综合采集器
-（2）以太网口插入网线
-
-## 2、软件调试
-（1）硬件接入后，部署上最新的程序，然后运行。
-（2）把开发板USB转串口接入电脑，打开串口调试器（115200，无校验），可以看到各种运行信息。
-（3）打开阿里云物联网平台，在设备运行状态中，可以看到上传的数据
-（4）打开http://182.92.177.94:9990/test网页，看相关客户端页面，相关的数据是否已经正确显示。
-（5）操作网页上的光照和喷淋按钮，看看相关的状态是否设置正确。
-
+# 四、 总结
+- 得益于LiteOS完善的软件和活跃的开发者氛围，IoT方向的移植工作可以很顺利的完成，感谢@[夏晓文](https://github.com/xiaowenxia)关于LwIP+MQTT的移植分享。
+- 该项目实现了最基本的云平台对接和数据上传，期待其他小伙伴们在该平台上的精彩作品:smile:
