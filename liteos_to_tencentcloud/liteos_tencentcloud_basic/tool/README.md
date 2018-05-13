@@ -1,0 +1,3 @@
+# Tools for liteos tencentcloud
+- **UsrName_Psk.py**： 输入产品ID、设备名称和密钥，自动生成Client ID、User Name和Password，请使用Python2.7运行。
+- **App.py**：接入腾讯云消息队列，用以物联网数据的接收和控制命令下发，To be continued...
