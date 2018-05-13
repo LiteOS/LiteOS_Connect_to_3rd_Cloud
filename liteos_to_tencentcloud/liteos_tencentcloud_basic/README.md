@@ -76,3 +76,5 @@
 # 四、 总结
 - 得益于LiteOS完善的软件和活跃的开发者氛围，IoT方向的移植工作可以很顺利的完成，感谢@[夏晓文](https://github.com/xiaowenxia)关于LwIP+MQTT的移植分享。
 - 该项目实现了最基本的云平台对接和数据上传，期待其他小伙伴们在该平台上的精彩作品:smile:
+- 腾讯云的消息队列提供了丰富的[API](https://cloud.tencent.com/document/api/406/5853)，可以在web，APP端直接获取物联网上传的数据和下发控制报文，此项工具将持续完善，为大家呈现更完整有趣的应用。
+- LiteOS日益完善、强大，期待LiteOS全面解锁IoT！
