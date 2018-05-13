@@ -174,8 +174,8 @@ VOID lwip_poll_task(VOID)
 > （4）连接MQTT服务器的配置参数
 
 ```
-#define MQTT_CLIENT_ID						"tbs_n110_001"
-#define KEEPALIVE_INTERVAL 					60
+#define MQTT_CLIENT_ID					"tbs_n110_001"
+#define KEEPALIVE_INTERVAL 				60
 #define MQTT_CLIENT_USER_NAME				"tbs_n110/tbs_n110_001"
 #define MQTT_CLIENT_PASSWORD				"nu/005K89vIWmbqmP9+V4h7k2GeofYtvZF3o9JT/X8o="
 
