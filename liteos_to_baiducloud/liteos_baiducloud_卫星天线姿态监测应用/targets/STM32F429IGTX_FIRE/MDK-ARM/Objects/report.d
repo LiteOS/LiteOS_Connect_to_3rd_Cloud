@@ -1,0 +1,17 @@
+.\objects\report.o: ..\..\..\MQTT-Client\iotx-utils\iotx-system\report.c
+.\objects\report.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\report.o: ..\..\..\MQTT-Client\iotx-utils\iotx-system\report.h
+.\objects\report.o: ..\..\..\MQTT-Client\sdk-impl\iot_import.h
+.\objects\report.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\report.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\report.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+.\objects\report.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\inttypes.h
+.\objects\report.o: ..\..\..\MQTT-Client\sdk-impl\iot_export.h
+.\objects\report.o: ..\..\..\MQTT-Client\sdk-impl\exports/iot_export_errno.h
+.\objects\report.o: ..\..\..\MQTT-Client\sdk-impl\exports/iot_export_mqtt.h
+.\objects\report.o: ..\..\..\MQTT-Client\iotx-utils\LITE-utils\lite-utils.h
+.\objects\report.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\report.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\report.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\assert.h
+.\objects\report.o: ..\..\..\MQTT-Client\iotx-utils\LITE-utils\lite-list.h
+.\objects\report.o: ..\..\..\MQTT-Client\iotx-utils\LITE-log\lite-log.h

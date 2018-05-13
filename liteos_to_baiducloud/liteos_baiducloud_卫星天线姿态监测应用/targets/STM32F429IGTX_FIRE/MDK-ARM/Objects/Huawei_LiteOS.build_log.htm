@@ -1,0 +1,66 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: μVision V5.17.0.0
+Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: c c, c, LIC=V8556-DF9DL-EYVVT-RXU4N-M33TL-T0MCE
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Professional  Version: 5.17
+Toolchain Path:  d:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 1 (build 61)
+Assembler:       Armasm.exe V5.06 update 1 (build 61)
+Linker/Locator:  ArmLink.exe V5.06 update 1 (build 61)
+Library Manager: ArmAr.exe V5.06 update 1 (build 61)
+Hex Converter:   FromElf.exe V5.06 update 1 (build 61)
+CPU DLL:         SARMCM3.DLL V5.17
+Dialog DLL:      DCM.DLL V1.13.4.0
+Target DLL:      UL2CM3.DLL V1.156.1.0
+Dialog DLL:      TCM.DLL V1.14.6.0
+ 
+<h2>Project:</h2>
+C:\Users\admin\Desktop\新建文件夹 (4)\LiteOS_lwip_mqtt\targets\STM32F429IGTX_FIRE\MDK-ARM\Huawei_LiteOS.uvprojx
+Project File Date:  05/12/2018
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 5 (build 528)', folder: 'd:\Keil_v5\ARM\ARMCC\Bin'
+Build target 'HuaweiLiteOS'
+compiling main.c...
+..\Src\main.c(95): warning:  #177-D: variable "ret" was declared but never referenced
+  	  int ret = 0;
+..\Src\main.c(96): warning:  #177-D: variable "Buffer" was declared but never referenced
+     	uint8_t Buffer[20];
+..\Src\main.c(97): warning:  #177-D: variable "value" was declared but never referenced
+  		uint16_t value[10];
+..\Src\main.c(289): warning:  #223-D: function "MQTTPublish" declared implicitly
+  						MQTTPublish(pclient, IOT_TOPIC_MPU_POST, &topic_msg);
+..\Src\main.c(109): warning:  #177-D: function "mqtt_message_arrive" was declared but never referenced
+  static void mqtt_message_arrive(void *pcontext, void *pclient, iotx_mqtt_event_msg_pt msg)
+..\Src\main.c: 5 warnings, 0 errors
+linking...
+Program Size: Code=110264 RO-data=4024 RW-data=1608 ZI-data=190772  
+FromELF: creating hex file...
+".\Objects\Huawei_LiteOS.axf" - 0 Error(s), 5 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.4.5.0.pack
+                ARM::CMSIS:CORE:4.3.0
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: CORE Version: 4.3.0
+
+<h2>Collection of Component include folders:</h2>
+  C:\Users\admin\Desktop\新建文件夹 (4)\LiteOS_lwip_mqtt\targets\STM32F429IGTX_FIRE\MDK-ARM\RTE
+  d:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include
+  d:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:4.3.0
+Build Time Elapsed:  00:00:48
+</pre>
+</body>
+</html>
