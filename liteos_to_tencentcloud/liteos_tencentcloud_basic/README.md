@@ -1,14 +1,16 @@
 # 一、背景和介绍
 
 ## 1、公司/团队介绍
-[洪业](https://github.com/ianhom)，嵌入式爱好者。
+[洪业](https://github.com/ianhom)，嵌入式操作系统爱好者，小型操作系统[MOE](https://github.com/ianhom/MOE)作者;热爱物联网，对脚本语言在嵌入式开发中的应用有浓厚的兴趣。
 
 ## 2、项目介绍    
 - 嵌入式终端通过**LiteOS**连接到**腾讯云物联网平台**,实现基础的连接和数据传输。    
 
 # 二、项目内容
 ## 1、方案说明
-- 基于STM32F429平台，通过LiteOS + LwIP + MQTT连接到[腾讯云物联网平台](https://cloud.tencent.com/product/iothub)。STM32F429平台所采集的数据通过有线网络上传到云端，实现云端平台数据展示。
+- 腾讯云平台提供了丰富的云产品，其中包括了IoT方向的“物联网通信”模块，通过该模块，终端设备可以通过MQTT或CoAP接入腾讯物联网平台，实现设备的管理和数据的交互。
+- 基于STM32F429平台，通过LiteOS + LwIP + MQTT连接到[腾讯云物联网平台](https://cloud.tencent.com/product/iothub)。STM32F429平台所采集的数据通过有线Ethernet+LwIP+MQTT传到云端，实现云端平台数据展示。
+
 
 ## 2、硬件方案
 - [野火STM32F429挑战者开发板](https://item.taobao.com/item.htm?spm=a1z10.5-c.w4002-10310241588.32.31936ab2hZzHfP&id=545418358219)
@@ -61,8 +63,144 @@
 - **注意上述User Name和Password可通过[Python工具](https://github.com/ianhom/LiteOS_Connect_to_3rd_Cloud/blob/master/liteos_to_tencentcloud/liteos_tencentcloud_basic/tool/UsrName_Psk.py)自动生成**。
 - ![创建新产品](https://github.com/ianhom/LiteOS_Connect_to_3rd_Cloud/blob/master/liteos_to_tencentcloud/liteos_tencentcloud_basic/pic/tool.png?raw=true) 
 
-## 5、 终端设备上线和数据上传
-- 完成上述配置后，即可运行终端设备，连接云端服务器，发送数据。
+
+# 四、 关键源码解析
+## 1、程序文件介绍
+- LiteOS内核源码：负责OS运行，提供内核服务和硬件驱动
+- LwIP源码：负责实现TCP/IP通信
+- MQTT源码：负责实现MQTT客户端
+- Usr_Cfg.h：用以配置MQTT客户端相关参数
+
+## 2、程序主函数说明
+```c
+int main(void)
+{
+    UINT32 uwRet;
+
+    /*Init LiteOS kernel */
+    uwRet = LOS_KernelInit();
+    if (uwRet != LOS_OK) {
+        return LOS_NOK;
+    }
+    
+    /* Enable LiteOS system tick interrupt */
+    LOS_EnableTick();
+    
+    /* Init Key,LED,Uart,Eth,TCP/IP and start the MQTT client task */
+    LOS_EvbSetup();
+    printf("this is LiteOS lwip port \r\n");
+
+    /* Kernel start to run */
+    LOS_Start();
+    for (;;);
+    /* Replace the dots (...) with your own code. */
+```
+- 初始化LiteOS内核之后，即开始初始化硬件key，led，uart及Eth，然后即启动MQTT客户端任务。
+
+## 3、关键代码说明
+```c
+void example_do_connect(mqtt_client_t *client)
+{
+    struct mqtt_connect_client_info_t ci;
+    err_t err;
+    /* Setup an empty client info structure */
+    memset(&ci, 0, sizeof(ci));
+    
+    /* Client ID, user name, password */ 
+    ci.client_id   = LOS_IOT_CLIENT_ID;
+    ci.client_user = LOS_IOT_USR_NAME;
+    ci.client_pass = LOS_IOT_PASSWORD;
+    ci.keep_alive  = 60;
+
+    /* MQTT server IP address */
+    IP4_ADDR(&mqttServerIpAddr, 111,230,189,156);
+    
+    err = mqtt_client_connect(client, &mqttServerIpAddr, 1883, mqtt_connection_cb, 0, &ci);
+    
+    /* For now just print the result code if something goes wrong */
+    if(err != ERR_OK) 
+    {
+        printf("mqtt_connect return %d\n", err);
+    }
+}
+
+static void mqtt_connection_cb(mqtt_client_t *client, void *arg, mqtt_connection_status_t status)
+{
+    err_t err;
+    if(status == MQTT_CONNECT_ACCEPTED) 
+    {
+        printf("mqtt_connection_cb: Successfully connected\n");
+        
+        /* Setup callback for incoming publish requests */
+        mqtt_set_inpub_callback(client, mqtt_incoming_publish_cb, mqtt_incoming_data_cb, arg);
+        
+        /* Subscribe to a topic named "subtopic" with QoS level 2, call mqtt_sub_request_cb with result */ 
+        err = mqtt_subscribe(client, LOS_IOT_SUB_TOPIC, 1, mqtt_sub_request_cb, arg);
+        
+        if(err != ERR_OK)
+        {
+            printf("mqtt_subscribe return: %d\n", err);
+        }
+    } 
+    else 
+    {
+        printf("mqtt_connection_cb: Disconnected, reason: %d\n", status);
+        
+        /* Its more nice to be connected, so try to reconnect */
+        example_do_connect(client);
+    }  
+}
+
+```
+- `void example_do_connect(mqtt_client_t *client)`该函数负责MQTT客户端连接服务器，将在这里填入Client ID、User Name以及Password。
+- `static void mqtt_connection_cb(mqtt_client_t *client, void *arg, mqtt_connection_status_t status)`该函数作为MQTT连接的回调函数，来响应MQTT服务器连接回应。若连接成功，则开始订阅`LOS_IOT_SUB_TOPIC`主题。
+
+## 4、上传数据代码详解
+```c
+void example_publish(mqtt_client_t *client, void *arg)
+{
+    
+    const char *pstr= LOS_IOT_PUB_DATA;
+    err_t err;
+
+    u8_t qos = 1; /* 0 1 or 2, see MQTT specification */ 
+    u8_t retain = 0; /* No don't retain such crappy payload... */
+    
+    err = mqtt_publish(client, LOS_IOT_PUB_TOPIC, pstr, strlen(pstr), qos, retain, mqtt_pub_request_cb, arg);
+    
+    if(err != ERR_OK)
+    {
+        printf("Publish err: %d.\r\n", err);
+    }
+    else
+    {
+        printf("Publish Success.\r\n");
+    }
+}
+
+/* Called when publish is complete either with sucess or failure */
+void mqtt_pub_request_cb(void *arg, err_t result)
+{
+    if(result != ERR_OK)
+    {
+        printf("Publish result: %d\n", result);
+    }
+}
+```
+- `void example_publish(mqtt_client_t *client, void *arg)`函数负责数据publish到`LOS_IOT_PUB_TOPIC`主题中。
+- `void mqtt_pub_request_cb(void *arg, err_t result)`函数作为publish结果的回调函数，对publish的结果进行响应。
+## 5、 下发命令代码详解
+```c
+static void mqtt_incoming_publish_cb(void *arg, const char *topic, u32_t tot_len)
+{
+    printf("Incoming publish at topic \" %s \" with total length %u\r\n", topic, (unsigned int)tot_len);
+}
+```
+-`mqtt_subscribe(client, LOS_IOT_SUB_TOPIC, 1, mqtt_sub_request_cb, arg);`该函数向服务器订阅了`LOS_IOT_SUB_TOPIC`主题。
+-`static void mqtt_incoming_publish_cb(void *arg, const char *topic, u32_t tot_len)`该回调函数在收到下行报文后答应报文信息。
+
+# 五、 产品调试
+- 运行终端设备，连接云端服务器，发送数据。
 - ![创建新产品](https://github.com/ianhom/LiteOS_Connect_to_3rd_Cloud/blob/master/liteos_to_tencentcloud/liteos_tencentcloud_basic/pic/online.png?raw=true) 
 - 可以在设备页面检测设备是否上线。
 - ![创建新产品](https://github.com/ianhom/LiteOS_Connect_to_3rd_Cloud/blob/master/liteos_to_tencentcloud/liteos_tencentcloud_basic/pic/msg_rcv1.png?raw=true)
@@ -73,9 +211,3 @@
 - 上图为终端发送的数据，payload部分为base64加密后的格式。
 - ![创建新产品](https://github.com/ianhom/LiteOS_Connect_to_3rd_Cloud/blob/master/liteos_to_tencentcloud/liteos_tencentcloud_basic/pic/msg_rcv4.png?raw=true)
 - 通过base64解密即可得到数据原文。
-
-# 四、 总结
-- 得益于LiteOS完善的软件和活跃的开发者氛围，IoT方向的移植工作可以很顺利的完成，感谢@[夏晓文](https://github.com/xiaowenxia)关于LwIP+MQTT的移植分享。
-- 该项目实现了最基本的云平台对接和数据上传，期待其他小伙伴们在该平台上的精彩作品:smile:
-- 腾讯云的消息队列提供了丰富的[API](https://cloud.tencent.com/document/api/406/5853)，可以在web，APP端直接获取物联网上传的数据和下发控制报文，此项工作将持续完善，为大家呈现更完整有趣的应用。
-- LiteOS日益完善、强大，期待LiteOS全面解锁IoT！
