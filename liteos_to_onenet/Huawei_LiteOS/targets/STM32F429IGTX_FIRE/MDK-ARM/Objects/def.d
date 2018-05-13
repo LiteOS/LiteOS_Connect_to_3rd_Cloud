@@ -1,0 +1,9 @@
+.\objects\def.o: ..\..\..\lwip\lwip-1.4.1\src\core\def.c
+.\objects\def.o: ..\..\..\lwip\lwip-1.4.1\src\include\lwip/opt.h
+.\objects\def.o: ..\..\..\lwip\App\lwipopts.h
+.\objects\def.o: ..\..\..\lwip\lwip-1.4.1\src\include\lwip/debug.h
+.\objects\def.o: ..\..\..\lwip\lwip-1.4.1\src\include\lwip/arch.h
+.\objects\def.o: ..\..\..\lwip\lwip-1.4.1\port\arch/cc.h
+.\objects\def.o: ..\..\..\lwip\lwip-1.4.1\port\arch/cpu.h
+.\objects\def.o: ..\..\..\lwip\lwip-1.4.1\src\include\lwip/opt.h
+.\objects\def.o: ..\..\..\lwip\lwip-1.4.1\src\include\lwip/def.h
