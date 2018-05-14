@@ -1,0 +1,14 @@
+.\objects\http_util.o: ..\..\..\Common\Shared\Src\http_util.c
+.\objects\http_util.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\http_util.o: ..\Inc\AWSInc\main.h
+.\objects\http_util.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\http_util.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\http_util.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects\http_util.o: ..\..\..\Common\Shared\Inc\timedate.h
+.\objects\http_util.o: ..\Inc\AWSInc\flash.h
+.\objects\http_util.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\http_util.o: ..\..\..\Common\Shared\Inc\net.h
+.\objects\http_util.o: ..\..\..\Common\Shared\Inc\iot_flash_config.h
+.\objects\http_util.o: ..\..\..\Common\Shared\Inc\msg.h
+.\objects\http_util.o: ..\..\..\Common\Shared\Inc\cloud.h
+.\objects\http_util.o: ..\..\..\Common\Shared\Inc\http_util.h

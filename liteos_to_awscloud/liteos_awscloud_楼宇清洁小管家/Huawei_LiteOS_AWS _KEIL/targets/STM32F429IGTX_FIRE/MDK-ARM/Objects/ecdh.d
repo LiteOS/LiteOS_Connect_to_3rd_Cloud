@@ -1,0 +1,10 @@
+.\objects\ecdh.o: ..\..\..\third_party\mbedTLS\library\ecdh.c
+.\objects\ecdh.o: ..\..\..\Common\AWS\Inc\aws_mbedtls_config.h
+.\objects\ecdh.o: ..\..\..\third_party\mbedTLS\include\mbedtls/check_config.h
+.\objects\ecdh.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
+.\objects\ecdh.o: ..\..\..\third_party\mbedTLS\include\mbedtls/ecdh.h
+.\objects\ecdh.o: ..\..\..\third_party\mbedTLS\include\mbedtls/ecp.h
+.\objects\ecdh.o: ..\..\..\third_party\mbedTLS\include\mbedtls/bignum.h
+.\objects\ecdh.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\ecdh.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\ecdh.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

@@ -1,0 +1,14 @@
+.\objects\bignum.o: ..\..\..\third_party\mbedTLS\library\bignum.c
+.\objects\bignum.o: ..\..\..\Common\AWS\Inc\aws_mbedtls_config.h
+.\objects\bignum.o: ..\..\..\third_party\mbedTLS\include\mbedtls/check_config.h
+.\objects\bignum.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
+.\objects\bignum.o: ..\..\..\third_party\mbedTLS\include\mbedtls/bignum.h
+.\objects\bignum.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\bignum.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\bignum.o: ..\..\..\third_party\mbedTLS\include\mbedtls/bn_mul.h
+.\objects\bignum.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\bignum.o: ..\..\..\third_party\mbedTLS\include\mbedtls/platform.h
+.\objects\bignum.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\bignum.o: ..\Src\mem_manage.h
+.\objects\bignum.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\bignum.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\time.h

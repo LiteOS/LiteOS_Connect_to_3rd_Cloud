@@ -1,0 +1,9 @@
+.\objects\ecp_curves.o: ..\..\..\third_party\mbedTLS\library\ecp_curves.c
+.\objects\ecp_curves.o: ..\..\..\Common\AWS\Inc\aws_mbedtls_config.h
+.\objects\ecp_curves.o: ..\..\..\third_party\mbedTLS\include\mbedtls/check_config.h
+.\objects\ecp_curves.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
+.\objects\ecp_curves.o: ..\..\..\third_party\mbedTLS\include\mbedtls/ecp.h
+.\objects\ecp_curves.o: ..\..\..\third_party\mbedTLS\include\mbedtls/bignum.h
+.\objects\ecp_curves.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\ecp_curves.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\ecp_curves.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
