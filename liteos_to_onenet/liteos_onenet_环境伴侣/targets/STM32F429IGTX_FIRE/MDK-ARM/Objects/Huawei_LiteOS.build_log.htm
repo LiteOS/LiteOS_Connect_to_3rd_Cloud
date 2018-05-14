@@ -1,0 +1,128 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.24.2.0
+Copyright (C) 2017 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: C C, C, LIC=JDAMM-XDEZ6-BVL1G-VPCER-XDRAS-8JKYV
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Professional  Version: 5.24.1
+Toolchain Path:  D:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 5 (build 528)
+Assembler:       Armasm.exe V5.06 update 5 (build 528)
+Linker/Locator:  ArmLink.exe V5.06 update 5 (build 528)
+Library Manager: ArmAr.exe V5.06 update 5 (build 528)
+Hex Converter:   FromElf.exe V5.06 update 5 (build 528)
+CPU DLL:         SARMCM3.DLL V5.24.1
+Dialog DLL:      DCM.DLL V1.16.0.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.1.0
+Dialog DLL:      TCM.DLL V1.32.0.0
+ 
+<h2>Project:</h2>
+E:\MyProject\LiteOS_oneNet\Huawei_LiteOS\targets\STM32F429IGTX_FIRE\MDK-ARM\Huawei_LiteOS.uvprojx
+Project File Date:  05/13/2018
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 5 (build 528)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
+Build target 'HuaweiLiteOS'
+compiling data_collect.c...
+..\..\..\lwip\App\data_collect.c(22): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *restrict"
+  	strcpy(CollectDataBuf,"POST /devices/30962671/datapoints HTTP/1.1\r\n");
+..\..\..\lwip\App\data_collect.c(23): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *restrict"
+  	strcat(CollectDataBuf,"api-key:MxVZE67SCEn0U0MhwvwkBcGbHBQ=\r\n");
+..\..\..\lwip\App\data_collect.c(24): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *restrict"
+  	strcat(CollectDataBuf,"Host:api.heclouds.com\r\n");
+..\..\..\lwip\App\data_collect.c(26): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *restrict"
+  	strcpy(temp1,"{\"datastreams\":[{\"id\":\"temperature\",\"datapoints\":[{\"value\":");
+..\..\..\lwip\App\data_collect.c(27): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *restrict"
+  	sprintf(temp,"%d.%d",(unsigned int)Temperature,(unsigned int)(Temperature-(unsigned int)Temperature)*1000);
+..\..\..\lwip\App\data_collect.c(29): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *restrict"
+  	strcat(temp1,temp);
+..\..\..\lwip\App\data_collect.c(29): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "const char *restrict"
+  	strcat(temp1,temp);
+..\..\..\lwip\App\data_collect.c(30): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *restrict"
+  	strcat(temp1,"}]}]}");
+..\..\..\lwip\App\data_collect.c(32): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "const char *"
+  	sprintf(temp,"%d",strlen(temp1));
+..\..\..\lwip\App\data_collect.c(32): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *restrict"
+  	sprintf(temp,"%d",strlen(temp1));
+..\..\..\lwip\App\data_collect.c(33): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *restrict"
+  	strcat(CollectDataBuf,"Content-Length:");
+..\..\..\lwip\App\data_collect.c(34): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *restrict"
+  	strcat(CollectDataBuf,temp);
+..\..\..\lwip\App\data_collect.c(34): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "const char *restrict"
+  	strcat(CollectDataBuf,temp);
+..\..\..\lwip\App\data_collect.c(35): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *restrict"
+  	strcat(CollectDataBuf,"\r\n\r\n");
+..\..\..\lwip\App\data_collect.c(37): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *restrict"
+  	strcat(CollectDataBuf,temp1);
+..\..\..\lwip\App\data_collect.c(37): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "const char *restrict"
+  	strcat(CollectDataBuf,temp1);
+..\..\..\lwip\App\data_collect.c(38): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "const char *"
+  	CollectDataLen=strlen(CollectDataBuf);
+..\..\..\lwip\App\data_collect.c(53): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *restrict"
+  	strcpy(CollectDataBuf,"POST /devices/30962671/datapoints HTTP/1.1\r\n");
+..\..\..\lwip\App\data_collect.c(54): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *restrict"
+  	strcat(CollectDataBuf,"api-key:MxVZE67SCEn0U0MhwvwkBcGbHBQ=\r\n");
+..\..\..\lwip\App\data_collect.c(55): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *restrict"
+  	strcat(CollectDataBuf,"Host:api.heclouds.com\r\n");
+..\..\..\lwip\App\data_collect.c(57): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *restrict"
+  	strcpy(temp1,"{\"datastreams\":[{\"id\":\"light\",\"datapoints\":[{\"value\":");
+..\..\..\lwip\App\data_collect.c(59): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *restrict"
+  	sprintf(temp,"%d",Ligthness);
+..\..\..\lwip\App\data_collect.c(60): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *restrict"
+  	strcat(temp1,temp);
+..\..\..\lwip\App\data_collect.c(60): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "const char *restrict"
+  	strcat(temp1,temp);
+..\..\..\lwip\App\data_collect.c(61): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *restrict"
+  	strcat(temp1,"}]}]}");
+..\..\..\lwip\App\data_collect.c(63): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "const char *"
+  	sprintf(temp,"%d",strlen(temp1));
+..\..\..\lwip\App\data_collect.c(63): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *restrict"
+  	sprintf(temp,"%d",strlen(temp1));
+..\..\..\lwip\App\data_collect.c(64): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *restrict"
+  	strcat(CollectDataBuf,"Content-Length:");
+..\..\..\lwip\App\data_collect.c(65): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *restrict"
+  	strcat(CollectDataBuf,temp);
+..\..\..\lwip\App\data_collect.c(65): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "const char *restrict"
+  	strcat(CollectDataBuf,temp);
+..\..\..\lwip\App\data_collect.c(66): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *restrict"
+  	strcat(CollectDataBuf,"\r\n\r\n");
+..\..\..\lwip\App\data_collect.c(68): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *restrict"
+  	strcat(CollectDataBuf,temp1);
+..\..\..\lwip\App\data_collect.c(68): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "const char *restrict"
+  	strcat(CollectDataBuf,temp1);
+..\..\..\lwip\App\data_collect.c(69): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "const char *"
+  	CollectDataLen=strlen(CollectDataBuf);
+..\..\..\lwip\App\data_collect.c: 34 warnings, 0 errors
+linking...
+Program Size: Code=42538 RO-data=326 RW-data=1488 ZI-data=183548  
+".\Objects\Huawei_LiteOS.axf" - 0 Error(s), 34 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.2.0.pack
+                ARM.CMSIS.5.2.0
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.0.2
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F4xx_DFP.2.13.0.pack
+                Keil.STM32F4xx_DFP.2.13.0
+                STMicroelectronics STM32F4 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_HuaweiLiteOS
+  D:\Keil_v5\ARM\PACK\ARM\CMSIS\5.2.0\CMSIS\Include
+  D:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.0.2
+Build Time Elapsed:  00:00:02
+</pre>
+</body>
+</html>
