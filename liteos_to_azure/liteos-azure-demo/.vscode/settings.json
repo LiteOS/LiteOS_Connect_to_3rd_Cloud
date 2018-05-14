@@ -1,0 +1,23 @@
+{
+    "files.associations": {
+        "*.ph": "c",
+        "bsp_sdram.h": "c",
+        "bsp_rtc.h": "c",
+        "stm32f4xx_hal.h": "c",
+        "stm32f4xx_hal_conf.h": "c",
+        "main.h": "c",
+        "ssl.h": "c",
+        "tlsio_mbedtls.h": "c",
+        "tls_config.h": "c",
+        "crt_abstractions.h": "c",
+        "socketio.h": "c",
+        "error-crypt.h": "c",
+        "config.h": "c",
+        "cpuid.h": "c",
+        "tlsio_openssl.h": "c",
+        "iothub_client_hsm_ll.h": "c",
+        "los_task.h": "c",
+        "dns.h": "c",
+        "errno.h": "c"
+    }
+}
