@@ -1,0 +1,14 @@
+.\objects\iot_flash_config.o: ..\..\..\Common\Shared\Src\iot_flash_config.c
+.\objects\iot_flash_config.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\iot_flash_config.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\iot_flash_config.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects\iot_flash_config.o: ..\Inc\AWSInc\main.h
+.\objects\iot_flash_config.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\iot_flash_config.o: ..\..\..\Common\Shared\Inc\timedate.h
+.\objects\iot_flash_config.o: ..\Inc\AWSInc\flash.h
+.\objects\iot_flash_config.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\iot_flash_config.o: ..\..\..\Common\Shared\Inc\net.h
+.\objects\iot_flash_config.o: ..\..\..\Common\Shared\Inc\iot_flash_config.h
+.\objects\iot_flash_config.o: ..\..\..\Common\Shared\Inc\msg.h
+.\objects\iot_flash_config.o: ..\..\..\Common\Shared\Inc\cloud.h
+.\objects\iot_flash_config.o: ..\..\..\Common\Shared\Inc\rfu.h

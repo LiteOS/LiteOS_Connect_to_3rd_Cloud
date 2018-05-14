@@ -1,0 +1,13 @@
+.\objects\des.o: ..\..\..\third_party\mbedTLS\library\des.c
+.\objects\des.o: ..\..\..\Common\AWS\Inc\aws_mbedtls_config.h
+.\objects\des.o: ..\..\..\third_party\mbedTLS\include\mbedtls/check_config.h
+.\objects\des.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
+.\objects\des.o: ..\..\..\third_party\mbedTLS\include\mbedtls/des.h
+.\objects\des.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\des.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\des.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\des.o: ..\..\..\third_party\mbedTLS\include\mbedtls/platform.h
+.\objects\des.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\des.o: ..\Src\mem_manage.h
+.\objects\des.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\des.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\time.h

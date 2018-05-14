@@ -1,0 +1,13 @@
+.\objects\base64.o: ..\..\..\third_party\mbedTLS\library\base64.c
+.\objects\base64.o: ..\..\..\Common\AWS\Inc\aws_mbedtls_config.h
+.\objects\base64.o: ..\..\..\third_party\mbedTLS\include\mbedtls/check_config.h
+.\objects\base64.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
+.\objects\base64.o: ..\..\..\third_party\mbedTLS\include\mbedtls/base64.h
+.\objects\base64.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\base64.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\base64.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\base64.o: ..\..\..\third_party\mbedTLS\include\mbedtls/platform.h
+.\objects\base64.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\base64.o: ..\Src\mem_manage.h
+.\objects\base64.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\base64.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\time.h

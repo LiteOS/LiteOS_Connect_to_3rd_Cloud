@@ -1,0 +1,9 @@
+.\objects\entropy_poll.o: ..\..\..\third_party\mbedTLS\library\entropy_poll.c
+.\objects\entropy_poll.o: ..\..\..\Common\AWS\Inc\aws_mbedtls_config.h
+.\objects\entropy_poll.o: ..\..\..\third_party\mbedTLS\include\mbedtls/check_config.h
+.\objects\entropy_poll.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
+.\objects\entropy_poll.o: ..\..\..\third_party\mbedTLS\include\mbedtls/entropy.h
+.\objects\entropy_poll.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\entropy_poll.o: ..\..\..\third_party\mbedTLS\include\mbedtls/sha512.h
+.\objects\entropy_poll.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\entropy_poll.o: ..\..\..\third_party\mbedTLS\include\mbedtls/entropy_poll.h

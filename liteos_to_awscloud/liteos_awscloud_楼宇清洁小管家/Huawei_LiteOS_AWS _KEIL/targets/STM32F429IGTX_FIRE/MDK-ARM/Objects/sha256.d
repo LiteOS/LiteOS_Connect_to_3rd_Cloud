@@ -1,0 +1,13 @@
+.\objects\sha256.o: ..\..\..\third_party\mbedTLS\library\sha256.c
+.\objects\sha256.o: ..\..\..\Common\AWS\Inc\aws_mbedtls_config.h
+.\objects\sha256.o: ..\..\..\third_party\mbedTLS\include\mbedtls/check_config.h
+.\objects\sha256.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
+.\objects\sha256.o: ..\..\..\third_party\mbedTLS\include\mbedtls/sha256.h
+.\objects\sha256.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\sha256.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\sha256.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\sha256.o: ..\..\..\third_party\mbedTLS\include\mbedtls/platform.h
+.\objects\sha256.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\sha256.o: ..\Src\mem_manage.h
+.\objects\sha256.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\sha256.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\time.h

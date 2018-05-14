@@ -1,0 +1,10 @@
+.\objects\platform.o: ..\..\..\third_party\mbedTLS\library\platform.c
+.\objects\platform.o: ..\..\..\Common\AWS\Inc\aws_mbedtls_config.h
+.\objects\platform.o: ..\..\..\third_party\mbedTLS\include\mbedtls/check_config.h
+.\objects\platform.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
+.\objects\platform.o: ..\..\..\third_party\mbedTLS\include\mbedtls/platform.h
+.\objects\platform.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\platform.o: ..\Src\mem_manage.h
+.\objects\platform.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\platform.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\time.h
+.\objects\platform.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
