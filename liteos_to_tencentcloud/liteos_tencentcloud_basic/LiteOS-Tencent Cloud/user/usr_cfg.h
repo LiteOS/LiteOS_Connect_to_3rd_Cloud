@@ -17,8 +17,8 @@ extern "C" {
 
 #define LOS_IOT_PRODUCT_ID          "DXJQTLK47X"
 #define LOS_IOT_DEV_NAME            "Sensor1"
-#define LOS_IOT_USR_NAME            "DXJQTLK47XSensor1;21010406;12365;1526231296"
-#define LOS_IOT_PASSWORD            "d73fccb85d34dcf6debb40cbef11a92822c9de62;hmacsha1"
+#define LOS_IOT_USR_NAME            "DXJQTLK47XSensor1;21010406;12365;1526407892"
+#define LOS_IOT_PASSWORD            "60c5b920b2f12b0fbe162a9f5a0092d5c057bd73;hmacsha1"
 
 #define LOS_IOT_PUB_DATA            "LiteOS for IoT!!"
   
