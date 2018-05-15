@@ -1,0 +1,13 @@
+.\objects\device.o: ..\..\..\MQTT-Client\iotx-utils\iotx-system\device.c
+.\objects\device.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\device.o: ..\..\..\MQTT-Client\iotx-utils\LITE-log\lite-log.h
+.\objects\device.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\device.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\device.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\device.o: ..\..\..\MQTT-Client\iotx-utils\iotx-system\device.h
+.\objects\device.o: ..\..\..\MQTT-Client\sdk-impl\iot_import.h
+.\objects\device.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+.\objects\device.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\inttypes.h
+.\objects\device.o: ..\..\..\MQTT-Client\sdk-impl\iot_export.h
+.\objects\device.o: ..\..\..\MQTT-Client\sdk-impl\exports/iot_export_errno.h
+.\objects\device.o: ..\..\..\MQTT-Client\sdk-impl\exports/iot_export_mqtt.h
