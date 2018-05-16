@@ -110,7 +110,7 @@ static void mqtt_incoming_publish_cb(void *arg, const char *topic, u32_t tot_len
     printf("Incoming publish at topic \" %s \" with total length %u\r\n", topic, (unsigned int)tot_len);
     
     /* Decode topic string into a user defined reference */
-    if(strcmp(topic, "time") == 0) 
+    if(strcmp(topic, LOS_IOT_SUB_TOPIC) == 0) 
     {
         inpub_id = 0;
     }
@@ -128,7 +128,7 @@ static void mqtt_incoming_publish_cb(void *arg, const char *topic, u32_t tot_len
 
 static void mqtt_incoming_data_cb(void *arg, const u8_t *data, u16_t len, u8_t flags)
 {    
-    uint8_t tempBuff[20]={0};    
+    uint8_t tempBuff[64]={0};    
     uint8_t i;
 
     for(i=0;i<len;i++)
