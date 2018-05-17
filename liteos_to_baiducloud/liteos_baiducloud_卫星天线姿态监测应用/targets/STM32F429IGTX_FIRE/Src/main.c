@@ -240,7 +240,7 @@ void MQTTBaiduTask(void)
 		
 	  printf("-----host=%s port=%d\r\n",mqtt_params.host,mqtt_params.port);
 		printf("-----username=%s password=%s\r\n",mqtt_params.username,mqtt_params.password);
-		
+	
 		//--//
 		while(1)
 		{			
@@ -262,12 +262,17 @@ void MQTTBaiduTask(void)
 						printf("MQTT construct failed\r\n");
 				 }
 				 else
-				 {
+				 {					 
+					  DeviceState=2;					  
 					  printf("MQTT construct succeed\r\n");
-					
+					  
+				 }
+			 }
+			else if(DeviceState==2)
+			{
 					  //Initialize topic information
 						memset(&topic_msg, 0x0, sizeof(iotx_mqtt_topic_info_t));
-						topic_msg.qos = IOTX_MQTT_QOS0;
+						topic_msg.qos = IOTX_MQTT_QOS1;
 						topic_msg.retain = 0;
 						topic_msg.dup = 0;
 					
@@ -283,28 +288,27 @@ void MQTTBaiduTask(void)
 								printf("Error occur! Exit program\r\n");
 								break;
 						}
-							printf("IOT_MQTT_Publish\r\n");			
+						printf("IOT_MQTT_Publish\r\n");			
 						topic_msg.payload = (void *)msg_pub;
 						topic_msg.payload_len = msg_len;        
-						MQTTPublish(pclient, IOT_TOPIC_MPU_POST, &topic_msg);
 						rc = IOT_MQTT_Publish(pclient, IOT_TOPIC_MPU_POST, &topic_msg);
 						if (rc < 0) {
 								printf("error occur when publish. %d\r\n", rc);
 								IOT_MQTT_Unsubscribe(pclient, IOT_TOPIC_MPU_POSTRSP);
 								LOS_TaskDelay(200);
+							
 								IOT_MQTT_Destroy(&pclient);
 								pclient = NULL;					
 								DeviceState = 1;   //重新连接
-								continue;
+								//continue;
+							
 						}						
 						printf("packet-id=%u, publish topic msg=%s\r\n", (uint32_t)rc, msg_pub);
-						//IOT_MQTT_Yield(pclient, 200);	
+						IOT_MQTT_Yield(pclient, 200);	
 
 				
-						LOS_TaskDelay(1000);	///1秒上传一次数据		
-						
-					
-				 }				 
+						LOS_TaskDelay(500);	///0.5秒上传一次数据		
+									 				 
 			}
 			
       LOS_TaskDelay(20);			
