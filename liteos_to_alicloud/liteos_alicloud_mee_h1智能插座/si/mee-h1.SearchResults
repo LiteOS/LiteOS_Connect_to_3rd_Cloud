@@ -1,0 +1,20 @@
+---- DHCP_state Matches (19 in 4 files) ----
+LAN8742A.c (drivers\boards\stm32f429igtx_fire\lan8742a):extern __IO uint8_t DHCP_state;
+LAN8742A.c (drivers\boards\stm32f429igtx_fire\lan8742a):    DHCP_state = DHCP_START;
+LAN8742A.c (drivers\boards\stm32f429igtx_fire\lan8742a):    DHCP_state = DHCP_LINK_DOWN;
+Main.c (targets\stm32f429igtx_fire\src):    extern __IO uint8_t DHCP_state;
+Main.c (targets\stm32f429igtx_fire\src):    while(DHCP_state!=)
+Netconf.c (targets\stm32f429igtx_fire\inc\lwipopts):__IO uint8_t DHCP_state;
+Netconf.c (targets\stm32f429igtx_fire\inc\lwipopts):    DHCP_state = DHCP_START;
+Netconf.c (targets\stm32f429igtx_fire\inc\lwipopts):    DHCP_state = DHCP_LINK_DOWN;
+Netconf.c (targets\stm32f429igtx_fire\inc\lwipopts):		switch (DHCP_state)
+Netconf.c (targets\stm32f429igtx_fire\inc\lwipopts):				DHCP_state = DHCP_WAIT_ADDRESS;
+Netconf.c (targets\stm32f429igtx_fire\inc\lwipopts):					DHCP_state = DHCP_ADDRESS_ASSIGNED;	
+Netconf.c (targets\stm32f429igtx_fire\inc\lwipopts):						DHCP_state = DHCP_TIMEOUT;
+Netconf.c (targets\stm32f429igtx_fire\src\lwipopts):__IO uint8_t DHCP_state;
+Netconf.c (targets\stm32f429igtx_fire\src\lwipopts):    DHCP_state = DHCP_START;
+Netconf.c (targets\stm32f429igtx_fire\src\lwipopts):    DHCP_state = DHCP_LINK_DOWN;
+Netconf.c (targets\stm32f429igtx_fire\src\lwipopts):		switch (DHCP_state)
+Netconf.c (targets\stm32f429igtx_fire\src\lwipopts):				DHCP_state = DHCP_WAIT_ADDRESS;
+Netconf.c (targets\stm32f429igtx_fire\src\lwipopts):					DHCP_state = DHCP_ADDRESS_ASSIGNED;	
+Netconf.c (targets\stm32f429igtx_fire\src\lwipopts):						DHCP_state = DHCP_TIMEOUT;
