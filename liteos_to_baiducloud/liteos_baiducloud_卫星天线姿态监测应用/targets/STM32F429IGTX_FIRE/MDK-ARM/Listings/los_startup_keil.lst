@@ -107,13 +107,13 @@ $Limit||
               00000000 
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
-erwork --depend=.\objects\los_startup_keil.d -o.\objects\los_startup_keil.o -I"
-C:\Users\admin\Desktop\新建文件夹 (4)\LiteOS_lwip_mqtt\targets\STM32F429IGTX_FI
-RE\MDK-ARM\RTE" -Id:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include -Id:\Keil_v
-5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -
--predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 517" --prede
-fine="_RTE_ SETA 1" --predefine="STM32F429xx SETA 1" --list=.\listings\los_star
-tup_keil.lst los_startup_keil.s
+erwork --depend=.\objects\los_startup_keil.d -o.\objects\los_startup_keil.o -IF
+:\2018_liteos\liteos_baiducloud_mpu6050\targets\STM32F429IGTX_FIRE\MDK-ARM\RTE 
+-Id:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include -Id:\Keil_v5\ARM\PACK\Keil\
+STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include --predefine="__MI
+CROLIB SETA 1" --predefine="__UVISION_VERSION SETA 517" --predefine="_RTE_ SETA
+ 1" --predefine="STM32F429xx SETA 1" --list=.\listings\los_startup_keil.lst los
+_startup_keil.s
 
 
 

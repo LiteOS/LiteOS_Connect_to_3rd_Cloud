@@ -32,10 +32,11 @@
 #include "iot_export.h"
 #include "los_mux.h"
 //--//
-#include "ModbusRTU.h"
 
 #include "MQTTPacket.h"
 #include "MQTTConnect.h"
+
+#include "MPU6050.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -72,6 +73,7 @@ float g_X = 0;
 float g_Y = 0;
 float g_Z = 0;
 
+
 /* Private function prototypes -----------------------------------------------*/
 void hardware_init(void)
 {
@@ -83,9 +85,11 @@ void hardware_init(void)
 	Debug_USART_Config();
 	DelayInit(SystemCoreClock);
 	//串口配置
-	MODBUSRTU_UART_Init(); 	
+	//MODBUSRTU_UART_Init(); 	
 	//以太网配置
 	ETH_BSP_Config();
+	
+	
 }
 
 //----------------------------//
@@ -93,16 +97,36 @@ void hardware_init(void)
 void ReadMPUTask(void)
 {
 	  int ret = 0;
-   	uint8_t Buffer[20];
-		uint16_t value[10];
+   	short Acel[3];
+		short Gyro[3];
+		float Temp;
 	
-	  while(1)
-		{
-			   //读取设备数据                    
+			//初始化 I2C
+		I2cMaster_Init(); 
+	
+		printf("\r\n 读写I2C外设(MPU6050)读写 \r\n");
 
-	
-				 LOS_TaskDelay(500);		
-		}		
+			//MPU6050初始化
+		MPU6050_Init();
+		
+		//检测MPU6050
+		if (MPU6050ReadID() == 1)
+		{
+			while(1)
+			{
+					 //读取设备数据                    
+					MPU6050ReadAcc(Acel);
+					printf("加速度：%8d%8d%8d",Acel[0],Acel[1],Acel[2]);
+					MPU6050ReadGyro(Gyro);
+					printf("陀螺仪%8d%8d%8d",Gyro[0],Gyro[1],Gyro[2]);
+					MPU6050_ReturnTemp(&Temp);
+					printf("==温度==%8.2f\r\n",Temp);					
+			    g_X = Gyro[0];
+					g_Y = Gyro[1];
+					g_Z = Gyro[2];
+					LOS_TaskDelay(500);		
+			}	
+	  }		
 }
 
 //订阅反馈
@@ -240,7 +264,7 @@ void MQTTBaiduTask(void)
 		
 	  printf("-----host=%s port=%d\r\n",mqtt_params.host,mqtt_params.port);
 		printf("-----username=%s password=%s\r\n",mqtt_params.username,mqtt_params.password);
-		
+	
 		//--//
 		while(1)
 		{			
@@ -262,12 +286,17 @@ void MQTTBaiduTask(void)
 						printf("MQTT construct failed\r\n");
 				 }
 				 else
-				 {
+				 {					 
+					  DeviceState=2;					  
 					  printf("MQTT construct succeed\r\n");
-					
+					  
+				 }
+			 }
+			else if(DeviceState==2)
+			{
 					  //Initialize topic information
 						memset(&topic_msg, 0x0, sizeof(iotx_mqtt_topic_info_t));
-						topic_msg.qos = IOTX_MQTT_QOS0;
+						topic_msg.qos = IOTX_MQTT_QOS1;
 						topic_msg.retain = 0;
 						topic_msg.dup = 0;
 					
@@ -283,28 +312,27 @@ void MQTTBaiduTask(void)
 								printf("Error occur! Exit program\r\n");
 								break;
 						}
-							printf("IOT_MQTT_Publish\r\n");			
+						printf("IOT_MQTT_Publish\r\n");			
 						topic_msg.payload = (void *)msg_pub;
 						topic_msg.payload_len = msg_len;        
-						MQTTPublish(pclient, IOT_TOPIC_MPU_POST, &topic_msg);
 						rc = IOT_MQTT_Publish(pclient, IOT_TOPIC_MPU_POST, &topic_msg);
 						if (rc < 0) {
 								printf("error occur when publish. %d\r\n", rc);
 								IOT_MQTT_Unsubscribe(pclient, IOT_TOPIC_MPU_POSTRSP);
 								LOS_TaskDelay(200);
+							
 								IOT_MQTT_Destroy(&pclient);
 								pclient = NULL;					
 								DeviceState = 1;   //重新连接
-								continue;
+								//continue;
+							
 						}						
 						printf("packet-id=%u, publish topic msg=%s\r\n", (uint32_t)rc, msg_pub);
-						//IOT_MQTT_Yield(pclient, 200);	
+						IOT_MQTT_Yield(pclient, 200);	
 
 				
-						LOS_TaskDelay(1000);	///1秒上传一次数据		
-						
-					
-				 }				 
+						LOS_TaskDelay(500);	///0.5秒上传一次数据		
+									 				 
 			}
 			
       LOS_TaskDelay(20);			
