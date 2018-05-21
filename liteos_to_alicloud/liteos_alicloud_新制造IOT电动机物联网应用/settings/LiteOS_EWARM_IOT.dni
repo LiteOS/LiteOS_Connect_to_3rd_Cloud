@@ -1,0 +1,89 @@
+[Stack]
+FillEnabled=0
+OverflowWarningsEnabled=1
+WarningThreshold=90
+SpWarningsEnabled=1
+WarnLogOnly=1
+UseTrigger=1
+TriggerName=main
+LimitSize=0
+ByteLimit=50
+[InterruptLog]
+LogEnabled=0
+SumEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+ShowTimeSum=1
+SumSortOrder=0
+[DataLog]
+LogEnabled=0
+SumEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+ShowTimeSum=1
+[Interrupts]
+Enabled=1
+[MemConfig]
+Base=1
+Manual=0
+Ddf=1
+TypeViol=0
+Stop=1
+[Simulator]
+Freq=10000000
+MultiCoreRunAll=1
+[DebugChecksum]
+Checksum=-1624361276
+[Exceptions]
+StopOnUncaught=_ 0
+StopOnThrow=_ 0
+[CallStack]
+ShowArgs=0
+[Disassembly]
+MixedMode=1
+[JLinkDriver]
+CStepIntDis=_ 0
+TraceBufferSize=0x00010000
+TraceStallIfFIFOFull=0x00000000
+TracePortSize=0x00000004
+[struct_types]
+Fmt0=S_Status-motor_dir	4	0
+Fmt1=S_Status-motor_status_last	4	0
+Fmt2=S_Status-motor_status_now	4	0
+Fmt3=TBuffModbus-TxLen	4	0
+Fmt4=TBuffModbus-bNew	4	0
+Fmt5=TDateTime-d	4	0
+Fmt6=TDateTime-h	4	0
+Fmt7=TDateTime-min	4	0
+Fmt8=TDateTime-mon	4	0
+Fmt9=TDateTime-s	3	0
+Fmt10=TDateTime-y	4	0
+Fmt11=TMeasure-Meas_Ia	4	0
+Fmt12=TStatus-ui	4	0
+[array_types]
+Fmt0=uint8_t[128]	4	0
+Fmt1=uint8_t[16]	4	0
+[watch_formats]
+Fmt0={W}0:stMotor.Status.s.motor_status	4	0
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
+[CallStackLog]
+Enabled=0
+[DriverProfiling]
+Enabled=0
+Mode=1
+Graph=0
+Symbiont=0
+Exclusions=
+[Disassemble mode]
+mode=0
+[Breakpoints2]
+Count=0
+[Aliases]
+Count=0
+SuppressDialog=0
