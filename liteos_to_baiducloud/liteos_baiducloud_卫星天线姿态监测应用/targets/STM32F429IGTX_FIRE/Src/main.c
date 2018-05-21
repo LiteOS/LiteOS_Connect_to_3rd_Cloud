@@ -32,10 +32,11 @@
 #include "iot_export.h"
 #include "los_mux.h"
 //--//
-#include "ModbusRTU.h"
 
 #include "MQTTPacket.h"
 #include "MQTTConnect.h"
+
+#include "MPU6050.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -72,6 +73,7 @@ float g_X = 0;
 float g_Y = 0;
 float g_Z = 0;
 
+
 /* Private function prototypes -----------------------------------------------*/
 void hardware_init(void)
 {
@@ -83,9 +85,11 @@ void hardware_init(void)
 	Debug_USART_Config();
 	DelayInit(SystemCoreClock);
 	//串口配置
-	MODBUSRTU_UART_Init(); 	
+	//MODBUSRTU_UART_Init(); 	
 	//以太网配置
 	ETH_BSP_Config();
+	
+	
 }
 
 //----------------------------//
@@ -93,16 +97,36 @@ void hardware_init(void)
 void ReadMPUTask(void)
 {
 	  int ret = 0;
-   	uint8_t Buffer[20];
-		uint16_t value[10];
+   	short Acel[3];
+		short Gyro[3];
+		float Temp;
 	
-	  while(1)
-		{
-			   //读取设备数据                    
+			//初始化 I2C
+		I2cMaster_Init(); 
+	
+		printf("\r\n 读写I2C外设(MPU6050)读写 \r\n");
 
-	
-				 LOS_TaskDelay(500);		
-		}		
+			//MPU6050初始化
+		MPU6050_Init();
+		
+		//检测MPU6050
+		if (MPU6050ReadID() == 1)
+		{
+			while(1)
+			{
+					 //读取设备数据                    
+					MPU6050ReadAcc(Acel);
+					printf("加速度：%8d%8d%8d",Acel[0],Acel[1],Acel[2]);
+					MPU6050ReadGyro(Gyro);
+					printf("陀螺仪%8d%8d%8d",Gyro[0],Gyro[1],Gyro[2]);
+					MPU6050_ReturnTemp(&Temp);
+					printf("==温度==%8.2f\r\n",Temp);					
+			    g_X = Gyro[0];
+					g_Y = Gyro[1];
+					g_Z = Gyro[2];
+					LOS_TaskDelay(500);		
+			}	
+	  }		
 }
 
 //订阅反馈

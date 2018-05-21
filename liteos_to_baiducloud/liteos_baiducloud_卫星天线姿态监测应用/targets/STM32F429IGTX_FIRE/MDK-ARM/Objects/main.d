@@ -97,9 +97,9 @@
 .\objects\main.o: ..\..\..\MQTT-Client\sdk-impl\exports/iot_export_errno.h
 .\objects\main.o: ..\..\..\MQTT-Client\sdk-impl\exports/iot_export_mqtt.h
 .\objects\main.o: ..\..\..\kernel\include\los_mux.h
-.\objects\main.o: ..\Src\ModbusRTU.h
 .\objects\main.o: ..\..\..\MQTT\MQTTPacket.h
 .\objects\main.o: ..\..\..\MQTT\MQTTConnect.h
 .\objects\main.o: ..\..\..\MQTT\MQTTPublish.h
 .\objects\main.o: ..\..\..\MQTT\MQTTSubscribe.h
 .\objects\main.o: ..\..\..\MQTT\MQTTUnsubscribe.h
+.\objects\main.o: ..\..\..\IMU\MPU6050.h

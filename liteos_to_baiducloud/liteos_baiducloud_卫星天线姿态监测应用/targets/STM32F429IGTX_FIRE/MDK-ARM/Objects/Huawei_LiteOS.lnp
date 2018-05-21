@@ -4,7 +4,6 @@
 ".\objects\stm32f4xx_it.o"
 ".\objects\system_stm32f4xx.o"
 ".\objects\netconf.o"
-".\objects\modbusrtu.o"
 ".\objects\dwt.o"
 ".\objects\bsp_key.o"
 ".\objects\bsp_led.o"
@@ -135,6 +134,11 @@
 ".\objects\mqtt_client.o"
 ".\objects\utils_timer.o"
 ".\objects\lite-log.o"
+".\objects\inv_mpu.o"
+".\objects\inv_mpu_dmp_motion_driver.o"
+".\objects\stm32f4xx_empl_drv.o"
+".\objects\mpu6050.o"
+".\objects\i2c.o"
 --library_type=microlib --strict --scatter ".\STM32F429IGTX-LiteOS.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

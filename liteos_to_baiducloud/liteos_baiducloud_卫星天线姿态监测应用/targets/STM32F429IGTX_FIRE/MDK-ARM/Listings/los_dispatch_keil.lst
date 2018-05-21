@@ -235,12 +235,12 @@ ARM Macro Assembler    Page 4
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
 erwork --depend=.\objects\los_dispatch_keil.d -o.\objects\los_dispatch_keil.o -
-I"C:\Users\admin\Desktop\新建文件夹 (4)\LiteOS_lwip_mqtt\targets\STM32F429IGTX_
-FIRE\MDK-ARM\RTE" -Id:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include -Id:\Keil
-_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
- --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 517" --pre
-define="_RTE_ SETA 1" --predefine="STM32F429xx SETA 1" --list=.\listings\los_di
-spatch_keil.lst ..\..\..\arch\arm\cortex-m4\los_dispatch_keil.s
+IF:\2018_liteos\liteos_baiducloud_mpu6050\targets\STM32F429IGTX_FIRE\MDK-ARM\RT
+E -Id:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include -Id:\Keil_v5\ARM\PACK\Kei
+l\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include --predefine="__
+MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 517" --predefine="_RTE_ SE
+TA 1" --predefine="STM32F429xx SETA 1" --list=.\listings\los_dispatch_keil.lst 
+..\..\..\arch\arm\cortex-m4\los_dispatch_keil.s
 
 
 

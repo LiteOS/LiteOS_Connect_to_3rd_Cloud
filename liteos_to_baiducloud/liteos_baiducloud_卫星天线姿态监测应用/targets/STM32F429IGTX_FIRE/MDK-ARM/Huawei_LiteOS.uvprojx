@@ -372,9 +372,9 @@
             <vShortWch>1</vShortWch>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>STM32F429_439xx,USE_STDPERIPH_DRIVER</Define>
+              <Define>STM32F429_439xx,USE_STDPERIPH_DRIVER,MPU6050,EMPL_TARGET_STM32F4,USE_STDPERIPH_DRIVER,USE_DMP,MPL_LOG_NDEBUG=1,EMPL</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Inc;..\..\..\drivers\boards\STM32F429IGTX_FIRE\dwt;..\..\..\drivers\boards\STM32F429IGTX_FIRE\key;..\..\..\drivers\boards\STM32F429IGTX_FIRE\led;..\..\..\drivers\boards\STM32F429IGTX_FIRE\usart;..\..\..\drivers\bsp\stm32\STM32F4xx_StdPeriph_Driver\inc;..\..\..\arch\arm\cortex-m4;..\..\..\kernel\compat\cmsis;..\..\..\kernel\compat\cmsis\1.0;..\..\..\kernel\compat\cmsis\2.0;..\..\..\kernel\base\include;..\..\..\kernel\include;..\OS_CONFIG;..\..\..\drivers\boards\STM32F429IGTX_FIRE\LAN8742A;..\..\..\lwip-1.4.1\port\LiteOS;..\..\..\lwip-1.4.1\port\arch;..\..\..\lwip-1.4.1\src\include\ipv4;..\..\..\lwip-1.4.1\src\include\lwip;..\..\..\lwip-1.4.1\src\include\netif;..\..\..\lwip-1.4.1\src\include;..\..\..\lwip-1.4.1\port;..\Src\lwipopts;..\Src;..\..\..\PolarSSL\polarssl-2.6.0-Apache\include\mbedtls;..\..\..\MQTT;..\..\..\PolarSSL\polarssl-2.6.0-Apache\include;..\..\..\MQTT-Client\sdk-impl;..\..\..\MQTT-Client\connectivity\mqtt;..\..\..\MQTT-Client\iotx-utils\guider;..\..\..\MQTT-Client\iotx-utils\LITE-log;..\..\..\MQTT-Client\iotx-utils\LITE-utils;..\..\..\MQTT-Client\iotx-utils\misc;..\..\..\MQTT-Client\iotx-utils\sdk-impl;..\..\..\MQTT-Client\iotx-utils\digest;..\..\..\MQTT-Client\iotx-utils\iotx-system;..\..\..\MQTT-Client\sdk-impl\imports;..\..\..\MQTT-Client\sdk-impl\exports</IncludePath>
+              <IncludePath>..\Inc;..\..\..\drivers\boards\STM32F429IGTX_FIRE\dwt;..\..\..\drivers\boards\STM32F429IGTX_FIRE\key;..\..\..\drivers\boards\STM32F429IGTX_FIRE\led;..\..\..\drivers\boards\STM32F429IGTX_FIRE\usart;..\..\..\drivers\bsp\stm32\STM32F4xx_StdPeriph_Driver\inc;..\..\..\arch\arm\cortex-m4;..\..\..\kernel\compat\cmsis;..\..\..\kernel\compat\cmsis\1.0;..\..\..\kernel\compat\cmsis\2.0;..\..\..\kernel\base\include;..\..\..\kernel\include;..\OS_CONFIG;..\..\..\drivers\boards\STM32F429IGTX_FIRE\LAN8742A;..\..\..\lwip-1.4.1\port\LiteOS;..\..\..\lwip-1.4.1\port\arch;..\..\..\lwip-1.4.1\src\include\ipv4;..\..\..\lwip-1.4.1\src\include\lwip;..\..\..\lwip-1.4.1\src\include\netif;..\..\..\lwip-1.4.1\src\include;..\..\..\lwip-1.4.1\port;..\Src\lwipopts;..\Src;..\..\..\PolarSSL\polarssl-2.6.0-Apache\include\mbedtls;..\..\..\MQTT;..\..\..\PolarSSL\polarssl-2.6.0-Apache\include;..\..\..\MQTT-Client\sdk-impl;..\..\..\MQTT-Client\connectivity\mqtt;..\..\..\MQTT-Client\iotx-utils\guider;..\..\..\MQTT-Client\iotx-utils\LITE-log;..\..\..\MQTT-Client\iotx-utils\LITE-utils;..\..\..\MQTT-Client\iotx-utils\misc;..\..\..\MQTT-Client\iotx-utils\sdk-impl;..\..\..\MQTT-Client\iotx-utils\digest;..\..\..\MQTT-Client\iotx-utils\iotx-system;..\..\..\MQTT-Client\sdk-impl\imports;..\..\..\MQTT-Client\sdk-impl\exports;..\..\..\IMU</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -446,11 +446,6 @@
               <FileName>netconf.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Src\lwipopts\netconf.c</FilePath>
-            </File>
-            <File>
-              <FileName>ModbusRTU.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Src\ModbusRTU.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1205,6 +1200,36 @@
               <FileName>lite-log.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\MQTT-Client\iotx-utils\LITE-log\lite-log.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>IMU</GroupName>
+          <Files>
+            <File>
+              <FileName>inv_mpu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\IMU\inv_mpu.c</FilePath>
+            </File>
+            <File>
+              <FileName>inv_mpu_dmp_motion_driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\IMU\inv_mpu_dmp_motion_driver.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_empl_drv.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\IMU\stm32f4xx_empl_drv.c</FilePath>
+            </File>
+            <File>
+              <FileName>mpu6050.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\IMU\mpu6050.c</FilePath>
+            </File>
+            <File>
+              <FileName>i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\IMU\i2c.c</FilePath>
             </File>
           </Files>
         </Group>
