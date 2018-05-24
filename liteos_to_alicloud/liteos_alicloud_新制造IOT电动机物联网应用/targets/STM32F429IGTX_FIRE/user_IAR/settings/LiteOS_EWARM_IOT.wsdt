@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Workspace>
+  <ConfigDictionary>
+    
+  <CurrentConfigs><Project>LiteOS_EWARM_IOT/Debug</Project></CurrentConfigs></ConfigDictionary>
+  <Desktop>
+    <Static>
+      <Workspace>
+        <ColumnWidths>
+          
+          
+          
+          
+        <Column0>275</Column0><Column1>0</Column1><Column2>27</Column2><Column3>0</Column3></ColumnWidths>
+      </Workspace>
+    <Build><ColumnWidth0>20</ColumnWidth0><ColumnWidth1>966</ColumnWidth1><ColumnWidth2>257</ColumnWidth2><ColumnWidth3>64</ColumnWidth3></Build><TerminalIO/><Debug-Log><ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1361</ColumnWidth1></Debug-Log></Static>
+    <Windows>
+      
+    <Wnd0>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-22969-13604</Identity>
+            <TabName>Workspace</TabName>
+            <Factory>Workspace</Factory>
+            <Session>
+              
+            <NodeDict><ExpandedNode>LiteOS_EWARM_IOT</ExpandedNode><ExpandedNode>LiteOS_EWARM_IOT/LiteOS_EWARM_IOT</ExpandedNode><ExpandedNode>LiteOS_EWARM_IOT/LiteOS_EWARM_IOT/drivers</ExpandedNode><ExpandedNode>LiteOS_EWARM_IOT/LiteOS_EWARM_IOT/kernel</ExpandedNode><ExpandedNode>LiteOS_EWARM_IOT/LiteOS_EWARM_IOT/startup</ExpandedNode><ExpandedNode>LiteOS_EWARM_IOT/LiteOS_EWARM_IOT/user</ExpandedNode></NodeDict></Session>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd0><Wnd1><Tabs><Tab><Identity>TabID-7917-5680</Identity><TabName>Build</TabName><Factory>Build</Factory><Session/></Tab><Tab><Identity>TabID-17945-19363</Identity><TabName>Debug Log</TabName><Factory>Debug-Log</Factory><Session/></Tab></Tabs><SelectedTab>0</SelectedTab></Wnd1></Windows>
+    <Editor>
+      
+      
+      
+      
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\..\kernel\base\core\los_tick.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>25</YPos2><SelStart2>2548</SelStart2><SelEnd2>2548</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\main.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>15</YPos2><SelStart2>1478</SelStart2><SelEnd2>1478</SelEnd2></Tab><ActiveTab>1</ActiveTab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Positions>
+      
+      
+      
+      
+      
+    <Top><Row0><Sizes><Toolbar-00F3FD40><key>iaridepm.enu1</key></Toolbar-00F3FD40></Sizes></Row0></Top><Left><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>615</Bottom><Right>322</Right><x>-2</x><y>-2</y><xscreen>57118</xscreen><yscreen>425</yscreen><sizeHorzCX>72947637</sizeHorzCX><sizeHorzCY>428427</sizeHorzCY><sizeVertCX>413793</sizeVertCX><sizeVertCY>621976</sizeVertCY></Rect></Wnd0></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>332</Bottom><Right>785</Right><x>-2</x><y>-2</y><xscreen>787</xscreen><yscreen>334</yscreen><sizeHorzCX>1005109</sizeHorzCX><sizeHorzCY>336694</sizeHorzCY><sizeVertCX>60882503</sizeVertCX><sizeVertCY>697581</sizeVertCY></Rect></Wnd1></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+  </Desktop>
+</Workspace>
+
+

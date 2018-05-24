@@ -39,7 +39,7 @@
 #include "los_timeslice.ph"
 
 /** ”√”⁄Œ¨ª§ os time */
-#include "../../../modbus.h"
+#include "../../../targets/STM32F429IGTX_FIRE/user_IAR/modbus.h"
 
 #ifdef __cplusplus
 #if __cplusplus

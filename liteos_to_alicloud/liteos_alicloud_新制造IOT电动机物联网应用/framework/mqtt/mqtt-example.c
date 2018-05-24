@@ -25,7 +25,7 @@
 #include "iot_export.h"
 #include "bsp_led.h" 
 /** modbus */
-#include "../../modbus.h"
+#include "../../targets/STM32F429IGTX_FIRE/user_IAR/modbus.h"
 
 // Aliyun IOT Advance
 //#define PRODUCT_KEY             "a1FmhrCH03E"
