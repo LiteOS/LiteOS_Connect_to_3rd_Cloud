@@ -337,7 +337,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F429_439xx,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Inc;..\..\..\drivers\boards\STM32F429IGTX_FIRE\dwt;..\..\..\drivers\boards\STM32F429IGTX_FIRE\key;..\..\..\drivers\boards\STM32F429IGTX_FIRE\led;..\..\..\drivers\boards\STM32F429IGTX_FIRE\usart;..\..\..\drivers\bsp\stm32\STM32F4xx_StdPeriph_Driver\inc;..\..\..\arch\arm\cortex-m4;..\..\..\kernel\compat\cmsis;..\..\..\kernel\compat\cmsis\1.0;..\..\..\kernel\compat\cmsis\2.0;..\..\..\kernel\base\include;..\..\..\kernel\include;..\OS_CONFIG;..\..\..\framework\connectivity\coap\iot-coap-c;..\..\..\utility\iotx-utils\digest;..\..\..\utility\iotx-utils\LITE-utils;..\..\..\utility\iotx-utils\mbedtls-hal;..\..\..\utility\iotx-utils\sdk-impl;..\..\..\utility\iotx-utils\sdk-impl\exports;..\..\..\utility\iotx-utils\sdk-impl\imports;..\..\..\utility\iotx-utils\LITE-log;..\..\..\utility\iotx-utils\misc;..\..\..\utility\iotx-utils\iotx-system;..\..\..\utility\iotx-utils\mbedtls-in-iotkit\include</IncludePath>
+              <IncludePath>..\Inc;..\..\..\drivers\boards\STM32F429IGTX_FIRE\dwt;..\..\..\drivers\boards\STM32F429IGTX_FIRE\key;..\..\..\drivers\boards\STM32F429IGTX_FIRE\adc;..\..\..\drivers\boards\STM32F429IGTX_FIRE\led;..\..\..\drivers\boards\STM32F429IGTX_FIRE\usart;..\..\..\drivers\bsp\stm32\STM32F4xx_StdPeriph_Driver\inc;..\..\..\arch\arm\cortex-m4;..\..\..\kernel\compat\cmsis;..\..\..\kernel\compat\cmsis\1.0;..\..\..\kernel\compat\cmsis\2.0;..\..\..\kernel\base\include;..\..\..\kernel\include;..\OS_CONFIG;..\..\..\components\packages\iot-coap-c;..\..\..\components\packages\LITE-log;..\..\..\components\packages\LITE-utils;..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\include\mbedtls;..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\include;..\..\..\components\packages\mbedtls\mbedtls-os-adapter;..\..\..\components\packages\mbedtls\mbedtls-port;..\..\..\components\sdk-impl;..\..\..\components\sdk-impl\exports;..\..\..\components\sdk-impl\imports;..\..\..\components\system;..\..\..\components\utils\digest;..\..\..\components\utils\misc;..\..\..\components\sal\include;..\..\..\components\sal\include\internal</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -440,6 +440,11 @@
               <FileName>bsp_model_nbiot.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\drivers\boards\STM32F429IGTX_FIRE\usart\bsp_model_nbiot.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\drivers\boards\STM32F429IGTX_FIRE\adc\bsp_adc.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -779,27 +784,17 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>coap/app</GroupName>
+          <GroupName>coap</GroupName>
           <Files>
-            <File>
-              <FileName>coapapp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\coapapp\coapapp.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>coap/api</GroupName>
-          <Files>
-            <File>
-              <FileName>iotx_coap_api.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\framework\connectivity\coap\iotx_coap_api.c</FilePath>
-            </File>
             <File>
               <FileName>iotx_ca_cert.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\framework\connectivity\coap\iotx_ca_cert.c</FilePath>
+              <FilePath>..\..\..\components\coap\iotx_ca_cert.c</FilePath>
+            </File>
+            <File>
+              <FileName>iotx_coap_api.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\coap\iotx_coap_api.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -807,69 +802,29 @@
           <GroupName>iot-coap-c</GroupName>
           <Files>
             <File>
-              <FileName>CoAPSerialize.c</FileName>
+              <FileName>CoAPDeserialize.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\framework\connectivity\coap\iot-coap-c\CoAPSerialize.c</FilePath>
-            </File>
-            <File>
-              <FileName>CoAPNetwork.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\framework\connectivity\coap\iot-coap-c\CoAPNetwork.c</FilePath>
-            </File>
-            <File>
-              <FileName>CoAPMessage.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\framework\connectivity\coap\iot-coap-c\CoAPMessage.c</FilePath>
+              <FilePath>..\..\..\components\packages\iot-coap-c\CoAPDeserialize.c</FilePath>
             </File>
             <File>
               <FileName>CoAPExport.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\framework\connectivity\coap\iot-coap-c\CoAPExport.c</FilePath>
+              <FilePath>..\..\..\components\packages\iot-coap-c\CoAPExport.c</FilePath>
             </File>
             <File>
-              <FileName>CoAPDeserialize.c</FileName>
+              <FileName>CoAPMessage.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\framework\connectivity\coap\iot-coap-c\CoAPDeserialize.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>iotx-utils/digest</GroupName>
-          <Files>
-            <File>
-              <FileName>utils_hmac.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\utility\iotx-utils\digest\utils_hmac.c</FilePath>
+              <FilePath>..\..\..\components\packages\iot-coap-c\CoAPMessage.c</FilePath>
             </File>
             <File>
-              <FileName>utils_md5.c</FileName>
+              <FileName>CoAPNetwork.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\utility\iotx-utils\digest\utils_md5.c</FilePath>
+              <FilePath>..\..\..\components\packages\iot-coap-c\CoAPNetwork.c</FilePath>
             </File>
             <File>
-              <FileName>utils_sha1.c</FileName>
+              <FileName>CoAPSerialize.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\utility\iotx-utils\digest\utils_sha1.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>iotx-utils/hal</GroupName>
-          <Files>
-            <File>
-              <FileName>HAL_OS_huawei.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\utility\iotx-utils\hal\huawei\HAL_OS_huawei.c</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_UDP_huawei.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\utility\iotx-utils\hal\huawei\HAL_UDP_huawei.c</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_DTLS_mbedtls.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\utility\iotx-utils\mbedtls-hal\HAL_DTLS_mbedtls.c</FilePath>
+              <FilePath>..\..\..\components\packages\iot-coap-c\CoAPSerialize.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -879,42 +834,317 @@
             <File>
               <FileName>json_parser.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\utility\iotx-utils\LITE-utils\json_parser.c</FilePath>
+              <FilePath>..\..\..\components\packages\LITE-utils\json_parser.c</FilePath>
             </File>
             <File>
               <FileName>json_token.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\utility\iotx-utils\LITE-utils\json_token.c</FilePath>
+              <FilePath>..\..\..\components\packages\LITE-utils\json_token.c</FilePath>
             </File>
             <File>
               <FileName>lite-log.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\utility\iotx-utils\LITE-log\lite-log.c</FilePath>
-            </File>
-            <File>
-              <FileName>string_utils.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\utility\iotx-utils\LITE-utils\string_utils.c</FilePath>
+              <FilePath>..\..\..\components\packages\LITE-log\lite-log.c</FilePath>
             </File>
             <File>
               <FileName>mem_stats.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\utility\iotx-utils\LITE-utils\mem_stats.c</FilePath>
+              <FilePath>..\..\..\components\packages\LITE-utils\mem_stats.c</FilePath>
+            </File>
+            <File>
+              <FileName>string_utils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\LITE-utils\string_utils.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>iotx-utils/system</GroupName>
+          <GroupName>mbedtls-in-iotkit</GroupName>
+          <Files>
+            <File>
+              <FileName>aes.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\aes.c</FilePath>
+            </File>
+            <File>
+              <FileName>asn1parse.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\asn1parse.c</FilePath>
+            </File>
+            <File>
+              <FileName>base64.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\base64.c</FilePath>
+            </File>
+            <File>
+              <FileName>bignum.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\bignum.c</FilePath>
+            </File>
+            <File>
+              <FileName>cipher.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\cipher.c</FilePath>
+            </File>
+            <File>
+              <FileName>cipher_wrap.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\cipher_wrap.c</FilePath>
+            </File>
+            <File>
+              <FileName>ctr_drbg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\ctr_drbg.c</FilePath>
+            </File>
+            <File>
+              <FileName>debug.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\debug.c</FilePath>
+            </File>
+            <File>
+              <FileName>entropy.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\entropy.c</FilePath>
+            </File>
+            <File>
+              <FileName>entropy_poll.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\entropy_poll.c</FilePath>
+            </File>
+            <File>
+              <FileName>error.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\error.c</FilePath>
+            </File>
+            <File>
+              <FileName>md.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\md.c</FilePath>
+            </File>
+            <File>
+              <FileName>md_wrap.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\md_wrap.c</FilePath>
+            </File>
+            <File>
+              <FileName>net_sockets.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\net_sockets.c</FilePath>
+            </File>
+            <File>
+              <FileName>oid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\oid.c</FilePath>
+            </File>
+            <File>
+              <FileName>pem.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\pem.c</FilePath>
+            </File>
+            <File>
+              <FileName>pk.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\pk.c</FilePath>
+            </File>
+            <File>
+              <FileName>pk_wrap.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\pk_wrap.c</FilePath>
+            </File>
+            <File>
+              <FileName>pkparse.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\pkparse.c</FilePath>
+            </File>
+            <File>
+              <FileName>platform.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\platform.c</FilePath>
+            </File>
+            <File>
+              <FileName>rsa.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\rsa.c</FilePath>
+            </File>
+            <File>
+              <FileName>sha1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\sha1.c</FilePath>
+            </File>
+            <File>
+              <FileName>sha256.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\sha256.c</FilePath>
+            </File>
+            <File>
+              <FileName>ssl_ciphersuites.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\ssl_ciphersuites.c</FilePath>
+            </File>
+            <File>
+              <FileName>ssl_cli.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\ssl_cli.c</FilePath>
+            </File>
+            <File>
+              <FileName>ssl_cookie.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\ssl_cookie.c</FilePath>
+            </File>
+            <File>
+              <FileName>ssl_tls.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\ssl_tls.c</FilePath>
+            </File>
+            <File>
+              <FileName>timing.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\timing.c</FilePath>
+            </File>
+            <File>
+              <FileName>x509.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\x509.c</FilePath>
+            </File>
+            <File>
+              <FileName>x509_crt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-in-iotkit\library\x509_crt.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>mbedtls-port</GroupName>
+          <Files>
+            <File>
+              <FileName>entropy_hardware_poll.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-port\entropy_hardware_poll.c</FilePath>
+            </File>
+            <File>
+              <FileName>net_sockets_alt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-port\net_sockets_alt.c</FilePath>
+            </File>
+            <File>
+              <FileName>timing_alt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-port\timing_alt.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>mbedtls-os-adapter</GroupName>
+          <Files>
+            <File>
+              <FileName>atiny_adapter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-os-adapter\atiny_adapter.c</FilePath>
+            </File>
+            <File>
+              <FileName>atiny_socket.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\packages\mbedtls\mbedtls-os-adapter\atiny_socket.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>platform-hal</GroupName>
+          <Files>
+            <File>
+              <FileName>HAL_OS_huawei.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\platform\os\huawei\HAL_OS_huawei.c</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_UDP_huawei.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\platform\os\huawei\HAL_UDP_huawei.c</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_DTLS_mbedtls.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\platform\ssl\mbedtls-hal\HAL_DTLS_mbedtls.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>system</GroupName>
           <Files>
             <File>
               <FileName>report.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\utility\iotx-utils\iotx-system\report.c</FilePath>
+              <FilePath>..\..\..\components\system\report.c</FilePath>
             </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>utils/digest</GroupName>
+          <Files>
+            <File>
+              <FileName>utils_hmac.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\utils\digest\utils_hmac.c</FilePath>
+            </File>
+            <File>
+              <FileName>utils_md5.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\utils\digest\utils_md5.c</FilePath>
+            </File>
+            <File>
+              <FileName>utils_sha1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\utils\digest\utils_sha1.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>utils/misc</GroupName>
+          <Files>
             <File>
               <FileName>utils_epoch_time.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\utility\iotx-utils\misc\utils_epoch_time.c</FilePath>
+              <FilePath>..\..\..\components\utils\misc\utils_epoch_time.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>sal</GroupName>
+          <Files>
+            <File>
+              <FileName>ip4_addr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\sal\ip4_addr.c</FilePath>
+            </File>
+            <File>
+              <FileName>sal.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\sal\sal.c</FilePath>
+            </File>
+            <File>
+              <FileName>sal_arch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\sal\sal_arch.c</FilePath>
+            </File>
+            <File>
+              <FileName>sal_device.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\sal\sal_device.c</FilePath>
+            </File>
+            <File>
+              <FileName>sal_err.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\sal\sal_err.c</FilePath>
+            </File>
+            <File>
+              <FileName>sal_sockets.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\sal\sal_sockets.c</FilePath>
+            </File>
+            <File>
+              <FileName>bc95.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\components\sal\nbiot\BC95\bc95.c</FilePath>
             </File>
           </Files>
         </Group>

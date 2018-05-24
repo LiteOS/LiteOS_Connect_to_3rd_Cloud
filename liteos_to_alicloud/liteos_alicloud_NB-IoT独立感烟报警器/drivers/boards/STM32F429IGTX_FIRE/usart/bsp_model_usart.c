@@ -14,7 +14,13 @@
 #include <stdio.h>
 #include "bsp_model_usart.h"
 
-static UINT32 g_uwModelMsg;
+#define RXBUFSIZE    2048
+
+char uartrecBuf[RXBUFSIZE];
+volatile UINT16 uartrecCnt = 0;
+UINT32 g_uwModelMsg;
+volatile UINT64  uwTickCount;
+
 
  /**
   * @brief  配置嵌套向量中断控制器NVIC
@@ -42,11 +48,13 @@ static void NVIC_Configuration(void)
   * @param  无
   * @retval 无
   */
-void MODEL_USART_Config(void)
+void MODEL_USART_Config(UINT32 baudrate)
 {
   GPIO_InitTypeDef GPIO_InitStructure;
   USART_InitTypeDef USART_InitStructure;
-  
+  //USART_DeInit(MODEL_USART);
+  USART_Cmd(MODEL_USART, DISABLE);
+  USART_ITConfig(MODEL_USART,USART_IT_RXNE,DISABLE);
   RCC_AHB1PeriphClockCmd( MODEL_USART_RX_GPIO_CLK|MODEL_USART_TX_GPIO_CLK, ENABLE);
 
   /* 使能 UART 时钟 */
@@ -73,7 +81,7 @@ void MODEL_USART_Config(void)
   GPIO_Init(MODEL_USART_RX_GPIO_PORT, &GPIO_InitStructure);
             
   /* 配置串口MODEL_USART 模式 */
-  USART_InitStructure.USART_BaudRate = MODEL_USART_BAUDRATE;
+  USART_InitStructure.USART_BaudRate = baudrate;
   USART_InitStructure.USART_WordLength = USART_WordLength_8b;
   USART_InitStructure.USART_StopBits = USART_StopBits_1;
   USART_InitStructure.USART_Parity = USART_Parity_No ;
@@ -82,6 +90,8 @@ void MODEL_USART_Config(void)
   USART_Init(MODEL_USART, &USART_InitStructure); 
   
   LOS_HwiCreate(MODEL_USART_IRQ, 0,0,MODEL_USART_IRQHandler,NULL);
+  
+  //uartrecBuf = (char *)LOS_MemAlloc(OS_SYS_MEM_ADDR, RXBUFSIZE);
 
   NVIC_Configuration();
   /*配置串口接收中断*/
@@ -248,6 +258,32 @@ void MODEL_USART_printf(char *Data,...)
         while( USART_GetFlagStatus(MODEL_USART, USART_FLAG_TXE) == RESET );
     }
 }
+
+void MODEL_USART_IRQHandler(void)
+{
+    UINT32 uwRet = 0;
+    UINT8 msg[1];
+    if (USART_GetITStatus(MODEL_USART, USART_IT_RXNE) != RESET)
+    {  
+        uartrecBuf[uartrecCnt++] = USART_ReceiveData(MODEL_USART);
+        if (uartrecCnt >= RXBUFSIZE) {
+            uartrecCnt = 0;
+        }
+        if (g_uwModelMsg) {
+            uwRet = LOS_QueueWrite(g_uwModelMsg, msg, 1, 0);
+            if(uwRet != LOS_OK)
+            {
+                //printf("create model msg failure!,error:%x\n", uwRet);
+            }
+        }
+        //uwTickCount = LOS_TickCountGet();
+    }
+}
+
+int SysTimeOut(UINT32 start, UINT32 end, UINT32 cur)
+{
+    return (((cur-start) >= (end-start)) ? 1 : 0);  
+}
 void MODEL_MSG_QueueCreate(void)
 {
     UINT32 uwRet = 0;
@@ -259,44 +295,47 @@ void MODEL_MSG_QueueCreate(void)
 
 }
 
-void MODEL_USART_IRQHandler(void)
-{
-    UINT32 uwRet = 0;
-    UINT8 msg[1];
-    if (USART_GetITStatus(MODEL_USART, USART_IT_RXNE) != RESET)
-    {
-        msg[0] = USART_ReceiveData(MODEL_USART);
-        uwRet = LOS_QueueWrite(g_uwModelMsg, msg, 1, 0);
-        if(uwRet != LOS_OK) {
-            //printf("send message failure,error:%x\n", uwRet);
-            //LOS_QueueRead(g_uwModelMsg, &uwRet, 24, 0);
-        }
-    }
-}
-
 UINT32 MODEL_MSG_QueueRead(char *rx_buff, UINT32 TimeOut)
 {
+    int len = 0;
     UINT32 uwReadbuf;
     UINT32 uwRet = LOS_OK;
-    UINT32 uwMsgCount = 0;
-    UINT64 uwTickCount;
-    
     MODEL_MSG_QueueCreate();
-    uwTickCount = LOS_TickCountGet();
+    //uwTickCount = LOS_TickCountGet();
+    memset(uartrecBuf, 0, RXBUFSIZE);
+    uartrecCnt = 0;
 
     while (1)
-    {
-        uwRet = LOS_QueueRead(g_uwModelMsg, &uwReadbuf, 24, 0);
-        if (uwRet == LOS_OK) {
-            //printf("%s", (char *)uwReadbuf);
-            rx_buff[uwMsgCount++] =  *(char *)uwReadbuf;
-        }
-        if (LOS_TickCountGet() - uwTickCount > TimeOut) {
-            rx_buff[uwMsgCount] = 0;
+    {   
+        uwRet = LOS_QueueRead(g_uwModelMsg, &uwReadbuf, 24, TimeOut);
+        if(uwRet == LOS_ERRNO_QUEUE_TIMEOUT) { 
+        //if (SysTimeOut(uwTickCount,uwTickCount+TimeOut,LOS_TickCountGet())) {
+            if (uartrecCnt) {
+                memcpy(rx_buff, uartrecBuf, uartrecCnt);
+                rx_buff[uartrecCnt] = 0;
+                len = uartrecCnt;
+                uartrecCnt = 0;
+            }
             break;
         }
     }
     LOS_QueueDelete(g_uwModelMsg);
-    return uwMsgCount;
+    return len;
 }
+
+void MODEL_USART_TEST(void)
+{
+    char *redata;
+    
+    redata = (char*)LOS_MemAlloc(OS_SYS_MEM_ADDR, 255);  
+
+    MODEL_USART_Config(MODEL_USART_BAUDRATE);                 //初始化串?    
+    while (1) {
+        if (MODEL_MSG_QueueRead(redata, LOS_WAIT_FOREVER)) {
+            MODEL_USART_printf(redata);
+        }
+    }
+     
+}
+
 /*********************************************END OF FILE**********************/

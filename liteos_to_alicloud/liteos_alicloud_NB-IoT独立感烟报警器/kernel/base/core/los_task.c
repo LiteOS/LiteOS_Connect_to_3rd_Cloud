@@ -794,6 +794,14 @@ LITE_OS_SEC_TEXT_INIT UINT32 LOS_TaskCreateOnly(UINT32 *puwTaskID, TSK_INIT_PARA
 
     pTopStack = (VOID *)LOS_MemAllocAlign(m_aucSysMem0, pstInitParam->uwStackSize, 8);
 
+
+    if(((UINT32)pTopStack) % 8!=0)
+    {
+       UINT32 offset = ((UINT32)pTopStack) % 8; 			 
+       pTopStack = (VOID *)(((UINT32)pTopStack) - offset);			
+       pstInitParam->uwStackSize -= 8;			  
+    }
+
     if (NULL == pTopStack)
     {
         uvIntSave = LOS_IntLock();
