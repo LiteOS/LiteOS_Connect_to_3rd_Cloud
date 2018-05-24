@@ -12,13 +12,15 @@
 #define KEY2_DOWNSTATE 1          //KEY2按下的时候是高电平
 
 //定义两个按键的引脚
-#define KEY1_PIN                  GPIO_Pin_0                 
+#define KEY1_PIN                  GPIO_Pin_2              
 #define KEY1_GPIO_PORT            GPIOA                      
-#define KEY1_GPIO_CLK             RCC_AHB1Periph_GPIOA
+#define KEY1_GPIO_CLK             RCC_AHB1Periph_GPIOA        //防拆
 
-#define KEY2_PIN                  GPIO_Pin_13                 
+#define KEY2_PIN                  GPIO_Pin_12                 
 #define KEY2_GPIO_PORT            GPIOC                      
-#define KEY2_GPIO_CLK             RCC_AHB1Periph_GPIOC
+#define KEY2_GPIO_CLK             RCC_AHB1Periph_GPIOC        //烟雾
+              
+
 
 //用户定义变量结束
 

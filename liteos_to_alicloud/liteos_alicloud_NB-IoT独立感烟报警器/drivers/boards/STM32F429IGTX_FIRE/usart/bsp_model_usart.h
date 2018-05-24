@@ -25,7 +25,7 @@
 #define MODEL_USART_TX_SOURCE                   GPIO_PinSource5
 
 
-#define MODEL_USART_IRQHandler                  USART2_IRQHandler
+//#define MODEL_USART_IRQHandler                  USART2_IRQHandler
 #define MODEL_USART_IRQ                         USART2_IRQn
 /************************************************************/
 #define MODEL_RESET_GPIO_PORT                   GPIOH
@@ -43,7 +43,7 @@
 
 
 
-void MODEL_USART_Config(void);
+void MODEL_USART_Config(UINT32 baudrate);
 
 void MODEL_RESET_Config(void);
 
@@ -54,6 +54,8 @@ void MODEL_USART_printf(char *Data,...);
 void MODEL_MSG_QueueCreate(void);
 
 UINT32 MODEL_MSG_QueueRead(char *rx_buff, UINT32 TimeOut);
+
+void MODEL_USART_TEST(void);
 
 
 #endif /* __USART1_H */
