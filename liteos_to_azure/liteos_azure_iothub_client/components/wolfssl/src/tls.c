@@ -237,7 +237,7 @@ static int p_hash(byte* result, word32 resLen, const byte* secret,
 #ifndef NO_OLD_TLS
 
 /* calculate XOR for TLSv1 PRF */
-static INLINE void get_xor(byte *digest, word32 digLen, byte* md5, byte* sha)
+INLINE void get_xor(byte *digest, word32 digLen, byte* md5, byte* sha)
 {
     word32 i;
 
@@ -712,7 +712,7 @@ int wolfSSL_make_eap_keys(WOLFSSL* ssl, void* msk, unsigned int len,
 }
 
 
-static INLINE void GetSEQIncrement(WOLFSSL* ssl, int verify, word32 seq[2])
+INLINE void GetSEQIncrement(WOLFSSL* ssl, int verify, word32 seq[2])
 {
     if (verify) {
         seq[0] = ssl->keys.peer_sequence_number_hi;
@@ -734,7 +734,7 @@ static INLINE void GetSEQIncrement(WOLFSSL* ssl, int verify, word32 seq[2])
 
 
 #ifdef WOLFSSL_DTLS
-static INLINE void DtlsGetSEQ(WOLFSSL* ssl, int order, word32 seq[2])
+INLINE void DtlsGetSEQ(WOLFSSL* ssl, int order, word32 seq[2])
 {
     if (order == PREV_ORDER) {
         /* Previous epoch case */
@@ -756,7 +756,7 @@ static INLINE void DtlsGetSEQ(WOLFSSL* ssl, int order, word32 seq[2])
 #endif /* WOLFSSL_DTLS */
 
 
-static INLINE void WriteSEQ(WOLFSSL* ssl, int verifyOrder, byte* out)
+INLINE void WriteSEQ(WOLFSSL* ssl, int verifyOrder, byte* out)
 {
     word32 seq[2] = {0, 0};
 
@@ -906,7 +906,7 @@ int TLS_hmac(WOLFSSL* ssl, byte* digest, const byte* in, word32 sz,
  *   available semaphores, check for a possible collision with with a
  *   'remapped' extension type.
  */
-static INLINE word16 TLSX_ToSemaphore(word16 type)
+INLINE word16 TLSX_ToSemaphore(word16 type)
 {
     switch (type) {
 
@@ -7050,7 +7050,7 @@ static int TLSX_PreSharedKey_New(PreSharedKey** list, byte* identity,
     return 0;
 }
 
-static INLINE byte GetHmacLength(int hmac)
+INLINE byte GetHmacLength(int hmac)
 {
     switch (hmac) {
     #ifndef NO_SHA256
@@ -9476,7 +9476,6 @@ int TLSX_Parse(WOLFSSL* ssl, byte* input, word16 length, byte msgType,
         (void)heap;
         if (method)
             InitSSL_Method(method, MakeTLSv1_2());
-            printf(">>>>>>>>>>>>>>>>>>>wolfTLSv1_2_client_method_ex return\r\n");
         return method;
     }
 

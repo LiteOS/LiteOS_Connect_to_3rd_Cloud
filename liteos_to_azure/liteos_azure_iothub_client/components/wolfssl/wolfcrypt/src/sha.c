@@ -30,6 +30,10 @@
 
 #include <wolfssl/wolfcrypt/sha.h>
 #include <wolfssl/wolfcrypt/error-crypt.h>
+#ifdef INLINE
+#undef INLINE
+#endif // DEBUG
+#define INLINE static __inline
 
 /* fips wrapper calls, user can call direct */
 #ifdef HAVE_FIPS
@@ -253,7 +257,7 @@
 /* Software implementation */
 #ifdef USE_SHA_SOFTWARE_IMPL
 
-static INLINE void AddLength(wc_Sha* sha, word32 len)
+INLINE void AddLength(wc_Sha* sha, word32 len)
 {
     word32 tmp = sha->loLen;
     if ((sha->loLen += len) < tmp)

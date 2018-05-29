@@ -1249,7 +1249,6 @@ int wolfSSL_CryptHwMutexUnLock(void) {
     int wc_InitMutex(wolfSSL_Mutex* m)
     {
         UINT32 uwRet;
-        printf(">>>>>>>>>>>>>wc_InitMutex start\r\n");
         uwRet = LOS_SemCreate(0,m);
         if (uwRet == LOS_OK)
         {
@@ -1265,7 +1264,6 @@ int wolfSSL_CryptHwMutexUnLock(void) {
     int wc_FreeMutex(wolfSSL_Mutex* m)
     {
         UINT32 uwRet;
-        printf(">>>>>>>>>>>>>wc_FreeMutex start\r\n");
 
         uwRet = LOS_SemDelete(*m);
 
@@ -1282,7 +1280,6 @@ int wolfSSL_CryptHwMutexUnLock(void) {
     int wc_LockMutex(wolfSSL_Mutex* m)
     {
         UINT32 uwRet;
-        printf(">>>>>>>>>>>>>wc_LockMutex start\r\n");
         uwRet = LOS_SemPend(*m, LOS_WAIT_FOREVER);
         if (uwRet == LOS_OK)
         {
@@ -1292,13 +1289,11 @@ int wolfSSL_CryptHwMutexUnLock(void) {
         {
             uwRet = (UINT32)BAD_MUTEX_E;
         }
-        printf(">>>>>>>>>>>>>wc_LockMutex end\r\n");
         return (int)uwRet;
     }
     int wc_UnLockMutex(wolfSSL_Mutex* m)
     {
         UINT32 uwRet;
-        printf(">>>>>>>>>>>>>wc_UnLockMutex start\r\n");
         uwRet = LOS_SemPost(*m);
         if (uwRet == LOS_OK)
         {
@@ -1308,7 +1303,6 @@ int wolfSSL_CryptHwMutexUnLock(void) {
         {
             uwRet = (UINT32)BAD_MUTEX_E;
         }
-        printf(">>>>>>>>>>>>>wc_UnLockMutex end\r\n");
         return (int)uwRet;
     }
 

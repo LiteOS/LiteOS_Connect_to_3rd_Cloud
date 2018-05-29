@@ -101,6 +101,10 @@
 #ifdef NO_ASN
     #include <wolfssl/wolfcrypt/dh.h>
 #endif
+#ifdef INLINE
+#undef INLINE
+#endif // DEBUG
+#define INLINE static __inline
 
 
 #ifdef WOLFSSL_SESSION_EXPORT
@@ -248,7 +252,6 @@ WOLFSSL_CTX* wolfSSL_CTX_new_ex(WOLFSSL_METHOD* method, void* heap)
     WOLFSSL_CTX* ctx = NULL;
 
     WOLFSSL_ENTER("WOLFSSL_CTX_new_ex");
-    printf(">>>>>>>>>>>>>>>>wolfSSL_CTX_new_ex start\r\n");
 
     if (initRefCount == 0) {
         /* user no longer forced to call Init themselves */
@@ -303,7 +306,6 @@ WOLFSSL_CTX* wolfSSL_CTX_new(WOLFSSL_METHOD* method)
     /* if testing the heap hint then set top level CTX to have test value */
     return wolfSSL_CTX_new_ex(method, (void*)WOLFSSL_HEAP_TEST);
 #else
-printf(">>>>>>>>>>>>>>>>>>>>wolfSSL_CTX_new start\r\n");
     return wolfSSL_CTX_new_ex(method, NULL);
 #endif
 }
@@ -902,7 +904,6 @@ int wolfSSL_CTX_mcast_set_member_id(WOLFSSL_CTX* ctx, word16 id)
         ctx->haveMcast = 1;
         ctx->mcastID = id;
 #ifndef WOLFSSL_USER_IO
-    printf(">>>>>>>>>>>>>>>>>>>>>wolfSSL_CTX_mcast_set_member_id ctx->CBIORecv = EmbedReceiveFromMcast\r\n");
         ctx->CBIORecv = EmbedReceiveFromMcast;
 #endif /* WOLFSSL_USER_IO */
     }
@@ -919,7 +920,7 @@ int wolfSSL_mcast_get_max_peers(void)
 }
 
 #ifdef WOLFSSL_DTLS
-static INLINE word32 UpdateHighwaterMark(word32 cur, word32 first,
+INLINE word32 UpdateHighwaterMark(word32 cur, word32 first,
                                          word32 second, word32 max)
 {
     word32 newCur = 0;
@@ -3613,7 +3614,7 @@ int wolfSSL_SetVersion(WOLFSSL* ssl, int version)
 #if !defined(NO_CERTS) || !defined(NO_SESSION_CACHE)
 
 /* Make a work from the front of random hash */
-static INLINE word32 MakeWordFromHash(const byte* hashID)
+INLINE word32 MakeWordFromHash(const byte* hashID)
 {
     return (hashID[0] << 24) | (hashID[1] << 16) | (hashID[2] <<  8) |
             hashID[3];
@@ -3625,7 +3626,7 @@ static INLINE word32 MakeWordFromHash(const byte* hashID)
 #ifndef NO_CERTS
 
 /* hash is the SHA digest of name, just use first 32 bits as hash */
-static INLINE word32 HashSigner(const byte* hash)
+INLINE word32 HashSigner(const byte* hash)
 {
     return MakeWordFromHash(hash) % CA_TABLE_SIZE;
 }
@@ -3671,7 +3672,7 @@ int AlreadySigner(WOLFSSL_CERT_MANAGER* cm, byte* hash)
 
 #ifdef WOLFSSL_TRUST_PEER_CERT
 /* hash is the SHA digest of name, just use first 32 bits as hash */
-static INLINE word32 TrustedPeerHashSigner(const byte* hash)
+INLINE word32 TrustedPeerHashSigner(const byte* hash)
 {
     return MakeWordFromHash(hash) % TP_TABLE_SIZE;
 }
@@ -4206,38 +4207,32 @@ int AddCA(WOLFSSL_CERT_MANAGER* cm, DerBuffer** pDer, int type, int verify)
 int wolfSSL_Init(void)
 {
     WOLFSSL_ENTER("wolfSSL_Init");
-    printf(">>>>>>>>>>>>>>>>wolfSSL_Init start\r\n");
 
     if (initRefCount == 0) {
         /* Initialize crypto for use with TLS connection */
         if (wolfCrypt_Init() != 0) {
             WOLFSSL_MSG("Bad wolfCrypt Init");
-    printf(">>>>>>>>>>>>>>>>wolfSSL_Init 1111111111111111111111\r\n");
             return WC_INIT_E;
         }
 #ifndef NO_SESSION_CACHE
         if (wc_InitMutex(&session_mutex) != 0) {
             WOLFSSL_MSG("Bad Init Mutex session");
-    printf(">>>>>>>>>>>>>>>>wolfSSL_Init 222222222222222222222\r\n");
             return BAD_MUTEX_E;
         }
 #endif
         if (wc_InitMutex(&count_mutex) != 0) {
             WOLFSSL_MSG("Bad Init Mutex count");
-    printf(">>>>>>>>>>>>>>>>wolfSSL_Init 3333333333333333333333333\r\n");
             return BAD_MUTEX_E;
         }
     }
 
     if (wc_LockMutex(&count_mutex) != 0) {
         WOLFSSL_MSG("Bad Lock Mutex count");
-    printf(">>>>>>>>>>>>>>>>wolfSSL_Init 4444444444444444444444444\r\n");
         return BAD_MUTEX_E;
     }
 
     initRefCount++;
     wc_UnLockMutex(&count_mutex);
-    printf(">>>>>>>>>>>>>>>>wolfSSL_Init 55555555555555555555555\r\n");
 
     return WOLFSSL_SUCCESS;
 }
@@ -5041,7 +5036,7 @@ static int ProcessChainBuffer(WOLFSSL_CTX* ctx, const unsigned char* buff,
 }
 
 
-static INLINE WOLFSSL_METHOD* cm_pick_method(void)
+INLINE WOLFSSL_METHOD* cm_pick_method(void)
 {
     #ifndef NO_WOLFSSL_CLIENT
         #if defined(WOLFSSL_ALLOW_SSLV3) && !defined(NO_OLD_TLS)
@@ -7832,7 +7827,7 @@ typedef struct {
 
 
 /* Return memory needed to persist this signer, have lock */
-static INLINE int GetSignerMemory(Signer* signer)
+INLINE int GetSignerMemory(Signer* signer)
 {
     int sz = sizeof(signer->pubKeySize) + sizeof(signer->keyOID)
            + sizeof(signer->nameLen)    + sizeof(signer->subjectNameHash);
@@ -7850,7 +7845,7 @@ static INLINE int GetSignerMemory(Signer* signer)
 
 
 /* Return memory needed to persist this row, have lock */
-static INLINE int GetCertCacheRowMemory(Signer* row)
+INLINE int GetCertCacheRowMemory(Signer* row)
 {
     int sz = 0;
 
@@ -7864,7 +7859,7 @@ static INLINE int GetCertCacheRowMemory(Signer* row)
 
 
 /* get the size of persist cert cache, have lock */
-static INLINE int GetCertCacheMemSize(WOLFSSL_CERT_MANAGER* cm)
+INLINE int GetCertCacheMemSize(WOLFSSL_CERT_MANAGER* cm)
 {
     int sz;
     int i;
@@ -7879,7 +7874,7 @@ static INLINE int GetCertCacheMemSize(WOLFSSL_CERT_MANAGER* cm)
 
 
 /* Store cert cache header columns with number of items per list, have lock */
-static INLINE void SetCertHeaderColumns(WOLFSSL_CERT_MANAGER* cm, int* columns)
+INLINE void SetCertHeaderColumns(WOLFSSL_CERT_MANAGER* cm, int* columns)
 {
     int     i;
     Signer* row;
@@ -7899,7 +7894,7 @@ static INLINE void SetCertHeaderColumns(WOLFSSL_CERT_MANAGER* cm, int* columns)
 
 /* Restore whole cert row from memory, have lock, return bytes consumed,
    < 0 on error, have lock */
-static INLINE int RestoreCertRow(WOLFSSL_CERT_MANAGER* cm, byte* current,
+INLINE int RestoreCertRow(WOLFSSL_CERT_MANAGER* cm, byte* current,
                                  int row, int listSz, const byte* end)
 {
     int idx = 0;
@@ -7991,7 +7986,7 @@ static INLINE int RestoreCertRow(WOLFSSL_CERT_MANAGER* cm, byte* current,
 
 
 /* Store whole cert row into memory, have lock, return bytes added */
-static INLINE int StoreCertRow(WOLFSSL_CERT_MANAGER* cm, byte* current, int row)
+INLINE int StoreCertRow(WOLFSSL_CERT_MANAGER* cm, byte* current, int row)
 {
     int     added  = 0;
     Signer* list   = cm->caTable[row];
@@ -8028,7 +8023,7 @@ static INLINE int StoreCertRow(WOLFSSL_CERT_MANAGER* cm, byte* current, int row)
 
 
 /* Persist cert cache to memory, have lock */
-static INLINE int DoMemSaveCertCache(WOLFSSL_CERT_MANAGER* cm,
+INLINE int DoMemSaveCertCache(WOLFSSL_CERT_MANAGER* cm,
                                      void* mem, int sz)
 {
     int realSz;
@@ -8492,7 +8487,7 @@ int wolfSSL_DTLS_SetCookieSecret(WOLFSSL* ssl,
 
     /* If SCTP is not enabled returns the state of the dtls option.
      * If SCTP is enabled returns dtls && !sctp. */
-    static INLINE int IsDtlsNotSctpMode(WOLFSSL* ssl)
+    INLINE int IsDtlsNotSctpMode(WOLFSSL* ssl)
     {
         int result = ssl->options.dtls;
 
@@ -8570,12 +8565,10 @@ int wolfSSL_DTLS_SetCookieSecret(WOLFSSL* ssl,
             return wolfSSL_connect_TLSv13(ssl);
 #endif
 
-printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>wolfSSL_connect ssl->options.connectState=%d\r\n",ssl->options.connectState);
 
         switch (ssl->options.connectState) {
 
         case CONNECT_BEGIN :
-        printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>wolfSSL_connect CONNECT_BEGIN\r\n");
             /* always send client hello first */
             if ( (ssl->error = SendClientHello(ssl)) != 0) {
                 WOLFSSL_ERROR(ssl->error);
@@ -8583,11 +8576,9 @@ printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>wolfSSL_connect ssl->options.connectState=%d
             }
             ssl->options.connectState = CLIENT_HELLO_SENT;
             WOLFSSL_MSG("connect state: CLIENT_HELLO_SENT");
-            printf(">>>>>>>>>>>>>>>>>>>connect state: CLIENT_HELLO_SENT\r\n");
             FALL_THROUGH;
 
         case CLIENT_HELLO_SENT :
-        printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>wolfSSL_connect CLIENT_HELLO_SENT\r\n");
             neededState = ssl->options.resuming ? SERVER_FINISHED_COMPLETE :
                                           SERVER_HELLODONE_COMPLETE;
             #ifdef WOLFSSL_DTLS
@@ -8605,7 +8596,6 @@ printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>wolfSSL_connect ssl->options.connectState=%d
                 #endif
                 if ( (ssl->error = ProcessReply(ssl)) < 0) {
                     WOLFSSL_ERROR(ssl->error);
-                    printf(">>>>>>>>>>>>>>>>>>>>>>>>(ssl->error = ProcessReply(ssl)=%d\r\n",ssl->error);
                     return WOLFSSL_FATAL_ERROR;
                 }
                 /* if resumption failed, reset needed state */
@@ -8620,11 +8610,9 @@ printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>wolfSSL_connect ssl->options.connectState=%d
 
             ssl->options.connectState = HELLO_AGAIN;
             WOLFSSL_MSG("connect state: HELLO_AGAIN");
-            printf(">>>>>>>>>>>>>>>>>>>connect state: HELLO_AGAIN\r\n");
             FALL_THROUGH;
 
         case HELLO_AGAIN :
-        printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>wolfSSL_connect HELLO_AGAIN\r\n");
             if (ssl->options.certOnly)
                 return WOLFSSL_SUCCESS;
 
@@ -8652,7 +8640,6 @@ printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>wolfSSL_connect ssl->options.connectState=%d
             FALL_THROUGH;
 
         case HELLO_AGAIN_REPLY :
-        printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>wolfSSL_connect HELLO_AGAIN_REPLY\r\n");
             #ifdef WOLFSSL_DTLS
                 if (IsDtlsNotSctpMode(ssl)) {
                     neededState = ssl->options.resuming ?
@@ -8678,7 +8665,6 @@ printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>wolfSSL_connect ssl->options.connectState=%d
             FALL_THROUGH;
 
         case FIRST_REPLY_DONE :
-        printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>wolfSSL_connect FIRST_REPLY_DONE\r\n");
             #ifdef WOLFSSL_TLS13
                 if (ssl->options.tls1_3)
                     return wolfSSL_connect_TLSv13(ssl);
@@ -8698,7 +8684,6 @@ printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>wolfSSL_connect ssl->options.connectState=%d
             FALL_THROUGH;
 
         case FIRST_REPLY_FIRST :
-        printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>wolfSSL_connect FIRST_REPLY_FIRST\r\n");
         #ifdef WOLFSSL_TLS13
             if (ssl->options.tls1_3)
                 return wolfSSL_connect_TLSv13(ssl);
@@ -8716,7 +8701,6 @@ printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>wolfSSL_connect ssl->options.connectState=%d
             FALL_THROUGH;
 
         case FIRST_REPLY_SECOND :
-        printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>wolfSSL_connect FIRST_REPLY_SECOND\r\n");
             #ifndef NO_CERTS
                 if (ssl->options.sendVerify) {
                     if ( (ssl->error = SendCertificateVerify(ssl)) != 0) {
@@ -8731,7 +8715,6 @@ printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>wolfSSL_connect ssl->options.connectState=%d
             FALL_THROUGH;
 
         case FIRST_REPLY_THIRD :
-        printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>wolfSSL_connect FIRST_REPLY_THIRD\r\n");
             if ( (ssl->error = SendChangeCipher(ssl)) != 0) {
                 WOLFSSL_ERROR(ssl->error);
                 return WOLFSSL_FATAL_ERROR;
@@ -8742,7 +8725,6 @@ printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>wolfSSL_connect ssl->options.connectState=%d
             FALL_THROUGH;
 
         case FIRST_REPLY_FOURTH :
-        printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>wolfSSL_connect FIRST_REPLY_FOURTH\r\n");
             if ( (ssl->error = SendFinished(ssl)) != 0) {
                 WOLFSSL_ERROR(ssl->error);
                 return WOLFSSL_FATAL_ERROR;
@@ -8753,7 +8735,6 @@ printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>wolfSSL_connect ssl->options.connectState=%d
             FALL_THROUGH;
 
         case FINISHED_DONE :
-        printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>wolfSSL_connect FINISHED_DONE\r\n");
             /* get response */
             while (ssl->options.serverState < SERVER_FINISHED_COMPLETE)
                 if ( (ssl->error = ProcessReply(ssl)) < 0) {
@@ -8766,7 +8747,6 @@ printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>wolfSSL_connect ssl->options.connectState=%d
             FALL_THROUGH;
 
         case SECOND_REPLY_DONE:
-        printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>wolfSSL_connect SECOND_REPLY_DONE\r\n");
 #ifndef NO_HANDSHAKE_DONE_CB
             if (ssl->hsDoneCb) {
                 int cbret = ssl->hsDoneCb(ssl, ssl->hsDoneCtx);
@@ -8793,7 +8773,6 @@ printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>wolfSSL_connect ssl->options.connectState=%d
             return WOLFSSL_SUCCESS;
 
         default:
-        printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>wolfSSL_connect default\r\n");
             WOLFSSL_MSG("Unknown connect state ERROR");
             return WOLFSSL_FATAL_ERROR; /* unknown connect state */
         }
@@ -9235,7 +9214,7 @@ int wolfSSL_Cleanup(void)
 
 
 /* some session IDs aren't random after all, let's make them random */
-static INLINE word32 HashSession(const byte* sessionID, word32 len, int* error)
+INLINE word32 HashSession(const byte* sessionID, word32 len, int* error)
 {
     byte digest[WC_MAX_DIGEST_SIZE];
 
@@ -9379,7 +9358,7 @@ WOLFSSL_SESSION* GetSessionClient(WOLFSSL* ssl, const byte* id, int len)
  * masterSecret         The master secret from the cached session.
  * restoreSessionCerts  Restoring session certificates is required.
  */
-static INLINE void RestoreSession(WOLFSSL* ssl, WOLFSSL_SESSION* session,
+INLINE void RestoreSession(WOLFSSL* ssl, WOLFSSL_SESSION* session,
         byte* masterSecret, byte restoreSessionCerts)
 {
     (void)ssl;
@@ -10880,7 +10859,6 @@ int wolfSSL_set_compression(WOLFSSL* ssl)
 
         /* set SSL to use BIO callbacks instead */
         if (rd != NULL && rd->type != WOLFSSL_BIO_SOCKET) {
-    printf(">>>>>>>>>>>>>>>>>>>>>wolfSSL_set_bio ssl->CBIORecv = BioReceive\r\n");
             ssl->CBIORecv = BioReceive;
         }
         if (wr != NULL && wr->type != WOLFSSL_BIO_SOCKET) {
@@ -20477,7 +20455,7 @@ int wolfSSL_ASN1_UTCTIME_print(WOLFSSL_BIO* bio, const WOLFSSL_ASN1_UTCTIME* a)
  * n  The number of the month as a two characters (1 based).
  * returns the month as a string.
  */
-static INLINE const char* MonthStr(const char* n)
+INLINE const char* MonthStr(const char* n)
 {
     static const char monthStr[12][4] = {
             "Jan", "Feb", "Mar", "Apr", "May", "Jun",

@@ -121,6 +121,10 @@
     #define WOLFSSL_MISC_INCLUDED
     #include <wolfcrypt/src/misc.c>
 #endif
+#ifdef INLINE
+#undef INLINE
+#endif // DEBUG
+#define INLINE static __inline
 
 
 /* Hardware Acceleration */
@@ -1286,7 +1290,7 @@
         0x00001040,0x00040040,0x10000000,0x10041000}
     };
 
-    static INLINE void IPERM(word32* left, word32* right)
+    INLINE void IPERM(word32* left, word32* right)
     {
         word32 work;
 
@@ -1312,7 +1316,7 @@
         *right ^= work;
     }
 
-    static INLINE void FPERM(word32* left, word32* right)
+    INLINE void FPERM(word32* left, word32* right)
     {
         word32 work;
 

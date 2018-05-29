@@ -1597,7 +1597,6 @@ static int GetTransportProviderIfNecessary(PMQTTTRANSPORT_HANDLE_DATA transport_
         const char* hostAddress = STRING_c_str(transport_data->hostAddress);
         MQTT_TRANSPORT_PROXY_OPTIONS mqtt_proxy_options;
 
-        printf(">>>>>>>>>>GetTransportProviderIfNecessary hostAddress=%s\r\n",hostAddress);
 
         /* Codes_SRS_IOTHUB_TRANSPORT_MQTT_COMMON_01_011: [ If no `proxy_data` option has been set, NULL shall be passed as the argument `mqtt_transport_proxy_options` when calling the function `get_io_transport` passed in `IoTHubTransport_MQTT_Common__Create`. ]*/
         mqtt_proxy_options.host_address = transport_data->http_proxy_hostname;
@@ -1968,14 +1967,11 @@ static PMQTTTRANSPORT_HANDLE_DATA InitializeTransportHandleData(const IOTHUB_CLI
                     /* Codes_SRS_IOTHUB_MQTT_TRANSPORT_07_008: [If the upperConfig contains a valid protocolGatewayHostName value the this shall be used for the hostname, otherwise the hostname shall be constructed using the iothubname and iothubSuffix.] */
                     if (upperConfig->protocolGatewayHostName == NULL)
                     {
-                        printf(">>>>>>>>>upperConfig->iotHubName=%s upperConfig->iotHubSuffix=%s\r\n",upperConfig->iotHubName,upperConfig->iotHubSuffix);
                          state->hostAddress = STRING_construct_sprintf("%s.%s", upperConfig->iotHubName, upperConfig->iotHubSuffix);
                          //char *ppp = ((STRING_HANDLE)(state->hostAddress))->s;
-                        //printf(">>>>>>>>>state->hostAddress->s=\r\n");
                     }
                     else
                     {
-                        printf(">>>>>>>>>upperConfig->protocolGatewayHostName=%s\r\n",upperConfig->protocolGatewayHostName);
                         state->hostAddress = STRING_construct(upperConfig->protocolGatewayHostName);
                     }
                 

@@ -2436,7 +2436,7 @@ static const byte lower_bound[] = {
 
 
 /* returns 1 on key size ok and 0 if not ok */
-static INLINE int RsaSizeCheck(int size)
+INLINE int RsaSizeCheck(int size)
 {
     if (size < RSA_MIN_SIZE || size > RSA_MAX_SIZE) {
         return 0;

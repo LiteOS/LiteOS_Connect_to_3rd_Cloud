@@ -42,6 +42,11 @@
     #include <stdlib.h>   /* atoi(), strtol() */
 #endif
 
+#ifdef INLINE
+#undef INLINE
+#endif
+#define INLINE static __inline
+
 /*
 Possible IO enable options:
  * WOLFSSL_USER_IO:     Disables default Embed* callbacks and     default: off
@@ -64,7 +69,7 @@ Possible IO enable options:
 /* Translates return codes returned from
  * send() and recv() if need be.
  */
-static INLINE int TranslateReturnCode(int old, int sd)
+INLINE int TranslateReturnCode(int old, int sd)
 {
     (void)sd;
 
@@ -88,7 +93,7 @@ static INLINE int TranslateReturnCode(int old, int sd)
     return old;
 }
 
-static INLINE int wolfSSL_LastError(void)
+INLINE int wolfSSL_LastError(void)
 {
 #ifdef USE_WINDOWS_API
     return WSAGetLastError();
@@ -216,10 +221,8 @@ int EmbedReceive(WOLFSSL *ssl, char *buf, int sz, void *ctx)
 #endif
 
     recvd = wolfIO_Recv(sd, buf, sz, ssl->rflags);
-    printf(">>>>>>>>>>>>>>>EmbedReceive recvd=%d\r\n",recvd);
     if (recvd < 0) {
         int err = wolfSSL_LastError();
-    printf(">>>>>>>>>>>>>>>EmbedReceive wolfSSL_LastError=%d\r\n",err);
         WOLFSSL_MSG("Embed Receive error");
 
         if (err == SOCKET_EWOULDBLOCK || err == SOCKET_EAGAIN) {
@@ -648,9 +651,7 @@ int wolfIO_Recv(SOCKET_T sd, char *buf, int sz, int rdFlags)
     int recvd;
 
     recvd = (int)RECV_FUNCTION(sd, buf, sz, rdFlags);
-    printf(">>>>>>>>>>>>>>>>>>>>wolfIO_Recv line=%d recvd=%d\r\n",__LINE__,recvd);
     recvd = TranslateReturnCode(recvd, sd);
-    printf(">>>>>>>>>>>>>>>>>>>>wolfIO_Recv line=%d recvd=%d\r\n",__LINE__,recvd);
 
     return recvd;
 }
@@ -1461,7 +1462,6 @@ int EmbedCrlLookup(WOLFSSL_CRL* crl, const char* url, int urlSz)
 
 WOLFSSL_API void wolfSSL_CTX_SetIORecv(WOLFSSL_CTX *ctx, CallbackIORecv CBIORecv)
 {
-    printf(">>>>>>>>>>>>>>>>>>>>>wolfSSL_CTX_SetIORecv ctx->CBIORecv = CBIORecv\r\n");
     ctx->CBIORecv = CBIORecv;
 }
 

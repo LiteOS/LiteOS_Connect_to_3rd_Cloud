@@ -2078,22 +2078,32 @@ int wc_ecc_mulmod_ex(mp_int* k, ecc_point *G, ecc_point *R,
    /* make a copy of G in case R==G */
    tG = wc_ecc_new_point_h(heap);
    if (tG == NULL)
+   {
        err = MEMORY_E;
+   }
 
    /* tG = G  and convert to montgomery */
    if (err == MP_OKAY) {
        if (mp_cmp_d(&mu, 1) == MP_EQ) {
            err = mp_copy(G->x, tG->x);
            if (err == MP_OKAY)
+           {
                err = mp_copy(G->y, tG->y);
+           }
            if (err == MP_OKAY)
+           {
                err = mp_copy(G->z, tG->z);
+           }
        } else {
            err = mp_mulmod(G->x, &mu, modulus, tG->x);
            if (err == MP_OKAY)
+           {
                err = mp_mulmod(G->y, &mu, modulus, tG->y);
+           }
            if (err == MP_OKAY)
+           {
                err = mp_mulmod(G->z, &mu, modulus, tG->z);
+           }
        }
    }
 
@@ -2235,15 +2245,23 @@ int wc_ecc_mulmod_ex(mp_int* k, ecc_point *G, ecc_point *R,
    /* calc the M tab */
    /* M[0] == G */
    if (err == MP_OKAY)
+   {
        err = mp_copy(tG->x, M[0]->x);
+   }
    if (err == MP_OKAY)
+   {
        err = mp_copy(tG->y, M[0]->y);
+   }
    if (err == MP_OKAY)
+   {
        err = mp_copy(tG->z, M[0]->z);
+   }
 
    /* M[1] == 2G */
    if (err == MP_OKAY)
+   {
        err = ecc_projective_dbl_point(tG, M[1], a, modulus, mp);
+   }
 
    /* setup sliding window */
    mode   = 0;
@@ -2342,17 +2360,25 @@ int wc_ecc_mulmod_ex(mp_int* k, ecc_point *G, ecc_point *R,
 
    /* copy result out */
    if (err == MP_OKAY)
+   {
        err = mp_copy(M[0]->x, R->x);
+   }
    if (err == MP_OKAY)
+   {
        err = mp_copy(M[0]->y, R->y);
+   }
    if (err == MP_OKAY)
+   {
        err = mp_copy(M[0]->z, R->z);
+   }
 
 #endif /* ECC_TIMING_RESISTANT */
 
    /* map R back from projective space */
    if (err == MP_OKAY && map)
+   {
        err = ecc_map(R, modulus, mp);
+   }
 
 exit:
 
@@ -2731,7 +2757,7 @@ int wc_ecc_get_curve_id_from_params(int fieldSize,
 
 
 #ifdef WOLFSSL_ASYNC_CRYPT
-static INLINE int wc_ecc_alloc_mpint(ecc_key* key, mp_int** mp)
+INLINE int wc_ecc_alloc_mpint(ecc_key* key, mp_int** mp)
 {
    if (key == NULL || mp == NULL)
       return BAD_FUNC_ARG;
@@ -2744,7 +2770,7 @@ static INLINE int wc_ecc_alloc_mpint(ecc_key* key, mp_int** mp)
    }
    return 0;
 }
-static INLINE void wc_ecc_free_mpint(ecc_key* key, mp_int** mp)
+INLINE void wc_ecc_free_mpint(ecc_key* key, mp_int** mp)
 {
    if (key && mp && *mp) {
       mp_clear(*mp);
@@ -3150,7 +3176,7 @@ static int wc_ecc_gen_k(WC_RNG* rng, int size, mp_int* k, mp_int* order)
 #endif
 #endif /* !WOLFSSL_ATECC508A */
 
-static INLINE void wc_ecc_reset(ecc_key* key)
+INLINE void wc_ecc_reset(ecc_key* key)
 {
     /* make sure required key variables are reset */
     key->state = ECC_STATE_NONE;
@@ -3205,7 +3231,9 @@ static int wc_ecc_make_pub_ex(ecc_key* key, ecc_curve_spec* curveIn,
     else {
         /* load curve info */
         if (err == MP_OKAY)
+        {
             err = wc_ecc_curve_load(key->dp, &curve, ECC_CURVE_FIELD_ALL);
+        }
     }
 
     if (err == MP_OKAY) {
@@ -3238,15 +3266,23 @@ static int wc_ecc_make_pub_ex(ecc_key* key, ecc_curve_spec* curveIn,
         if (err == MP_OKAY) {
             base = wc_ecc_new_point_h(key->heap);
             if (base == NULL)
+            {
                 err = MEMORY_E;
+            }
         }
         /* read in the x/y for this key */
         if (err == MP_OKAY)
+        {
             err = mp_copy(curve->Gx, base->x);
+        }
         if (err == MP_OKAY)
+        {
             err = mp_copy(curve->Gy, base->y);
+        }
         if (err == MP_OKAY)
+        {
             err = mp_set(base->z, 1);
+        }
 
         /* make the public key */
         if (err == MP_OKAY) {
@@ -3380,18 +3416,26 @@ int wc_ecc_make_key_ex(WC_RNG* rng, int keysize, ecc_key* key, int curve_id)
 
         /* load curve info */
         if (err == MP_OKAY)
+        {
             err = wc_ecc_curve_load(key->dp, &curve, ECC_CURVE_FIELD_ALL);
+        }
 
         /* generate k */
         if (err == MP_OKAY)
+        {
             err = wc_ecc_gen_k(rng, key->dp->size, &key->k, curve->order);
+        }
 
         /* generate public key from k */
         if (err == MP_OKAY)
+        {
             err = wc_ecc_make_pub_ex(key, curve, NULL);
+        }
 
         if (err == MP_OKAY)
+        {
             key->type = ECC_PRIVATEKEY;
+        }
 
         /* cleanup these on failure case only */
         if (err != MP_OKAY) {
@@ -8482,7 +8526,7 @@ int wc_ecc_set_custom_curve(ecc_key* key, const ecc_set_type* dp)
 
 #ifdef HAVE_X963_KDF
 
-static INLINE void IncrementX963KdfCounter(byte* inOutCtr)
+INLINE void IncrementX963KdfCounter(byte* inOutCtr)
 {
     int i;
 

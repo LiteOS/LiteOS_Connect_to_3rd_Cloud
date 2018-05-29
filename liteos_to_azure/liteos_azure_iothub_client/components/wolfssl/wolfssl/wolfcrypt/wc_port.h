@@ -161,7 +161,7 @@
             typedef OS_MUT wolfSSL_Mutex;
         #endif
     #elif defined(WOLFSSL_CMSIS_RTOS)
-        typedef osMutexId wolfSSL_Mutex;
+        typedef osMutexId_t wolfSSL_Mutex;
     #elif defined(WOLFSSL_TIRTOS)
         typedef ti_sysbios_knl_Semaphore_Handle wolfSSL_Mutex;
     #elif defined(WOLFSSL_FROSTED)

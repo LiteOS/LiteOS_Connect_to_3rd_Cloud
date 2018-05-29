@@ -47,6 +47,11 @@
 
 #define U32V(x) ((word32)(x) & 0xFFFFFFFFU)
 
+#ifdef INLINE
+#undef INLINE
+#endif // DEBUG
+#define INLINE static __inline
+
 
 /* Square a 32-bit unsigned integer to obtain the 64-bit result and return */
 /* the upper 32 bits XOR the lower 32 bits */
@@ -145,7 +150,7 @@ static void wc_RabbitSetIV(Rabbit* ctx, const byte* inIv)
 
 
 /* Key setup */
-static INLINE int DoKey(Rabbit* ctx, const byte* key, const byte* iv)
+INLINE int DoKey(Rabbit* ctx, const byte* key, const byte* iv)
 {
     /* Temporary variables */
     word32 k0, k1, k2, k3, i;
@@ -247,7 +252,7 @@ int wc_RabbitSetKey(Rabbit* ctx, const byte* key, const byte* iv)
 
 
 /* Encrypt/decrypt a message of any size */
-static INLINE int DoProcess(Rabbit* ctx, byte* output, const byte* input,
+INLINE int DoProcess(Rabbit* ctx, byte* output, const byte* input,
                             word32 msglen)
 {
     /* Encrypt/decrypt all full blocks */

@@ -31,6 +31,10 @@
 #endif
 
 #include <wolfssl/wolfcrypt/settings.h>
+#ifdef INLINE
+#undef INLINE
+#endif // DEBUG
+#define INLINE static __inline
 
 #ifdef HAVE_CHACHA
 
@@ -384,7 +388,7 @@ int wc_Chacha_SetKey(ChaCha* ctx, const byte* key, word32 keySz)
 /**
   * Converts word into bytes with rotations having been done.
   */
-static INLINE void wc_Chacha_wordtobyte(word32 output[CHACHA_CHUNK_WORDS],
+INLINE void wc_Chacha_wordtobyte(word32 output[CHACHA_CHUNK_WORDS],
     const word32 input[CHACHA_CHUNK_WORDS])
 {
     word32 x[CHACHA_CHUNK_WORDS];
