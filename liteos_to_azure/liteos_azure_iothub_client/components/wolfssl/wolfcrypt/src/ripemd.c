@@ -38,6 +38,10 @@
 #endif
 
 #include <wolfssl/wolfcrypt/error-crypt.h>
+#ifdef INLINE
+#undef INLINE
+#endif // DEBUG
+#define INLINE static __inline
 
 int wc_InitRipeMd(RipeMd* ripemd)
 {
@@ -271,7 +275,7 @@ static void Transform(RipeMd* ripemd)
 }
 
 
-static INLINE void AddLength(RipeMd* ripemd, word32 len)
+INLINE void AddLength(RipeMd* ripemd, word32 len)
 {
     word32 tmp = ripemd->loLen;
     if ( (ripemd->loLen += len) < tmp)

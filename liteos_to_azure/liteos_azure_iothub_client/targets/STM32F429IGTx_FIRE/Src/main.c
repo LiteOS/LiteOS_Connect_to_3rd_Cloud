@@ -70,7 +70,7 @@ UINT32 creat_main_task()
     task_init_param.usTaskPrio = 0;
     task_init_param.pcName = "main_task";
     task_init_param.pfnTaskEntry = (TSK_ENTRY_FUNC)main_task;
-    task_init_param.uwStackSize = 0x1000;
+    task_init_param.uwStackSize = 0x4000;
 
     uwRet = LOS_TaskCreate(&g_TskHandle, &task_init_param);
     if(LOS_OK != uwRet)

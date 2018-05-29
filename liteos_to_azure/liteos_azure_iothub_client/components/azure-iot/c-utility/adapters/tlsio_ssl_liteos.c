@@ -188,7 +188,6 @@ static int openssl_thread_LWIP_CONNECTION(TLS_IO_INSTANCE* p)
     {
         LogInfo("create SSL context");
         ctx = wolfSSL_CTX_new(wolfTLSv1_2_client_method());
-        printf(">>>>>>>>>>>>>>>>>>create SSL context ok\r\n");
         if (ctx == NULL) {
             result = __LINE__;
             LogError("create new SSL CTX failed");
@@ -220,24 +219,16 @@ static int openssl_thread_LWIP_CONNECTION(TLS_IO_INSTANCE* p)
 
                 ret = 0;
                 ret_test = setsockopt(sock, SOL_SOCKET, SO_KEEPALIVE, (void *)&keepAlive, sizeof(keepAlive));
-                printf(">>>>>>>>>>>>>>>>>>>line=%d ret_test=%d\r\n",__LINE__,ret_test);
                 ret += ret_test?1:0;
-                printf(">>>>>>>>>>>>>>>>>>>line=%d ret=%d\r\n",__LINE__,ret);
 
                 ret_test = setsockopt(sock, IPPROTO_TCP, TCP_KEEPIDLE, (void *)&keepIdle, sizeof(keepIdle));
-                printf(">>>>>>>>>>>>>>>>>>>line=%d ret_test=%d\r\n",__LINE__,ret_test);
                 ret += ret_test?1:0;
-                printf(">>>>>>>>>>>>>>>>>>>line=%d ret=%d\r\n",__LINE__,ret);
 
                 ret_test = setsockopt(sock, IPPROTO_TCP, TCP_KEEPINTVL, (void *)&keepInterval, sizeof(keepInterval));
-                printf(">>>>>>>>>>>>>>>>>>>line=%d ret_test=%d\r\n",__LINE__,ret_test);
                 ret += ret_test?1:0;
-                printf(">>>>>>>>>>>>>>>>>>>line=%d ret=%d\r\n",__LINE__,ret);
 
                 ret_test = setsockopt(sock, IPPROTO_TCP, TCP_KEEPCNT, (void *)&keepCount, sizeof(keepCount));
-                printf(">>>>>>>>>>>>>>>>>>>line=%d ret_test=%d\r\n",__LINE__,ret_test);
                 ret += ret_test?1:0;
-                printf(">>>>>>>>>>>>>>>>>>>line=%d ret=%d\r\n",__LINE__,ret);
                 
                 if (ret != 0){
                     result = __LINE__;
@@ -306,6 +297,7 @@ static int openssl_thread_LWIP_CONNECTION(TLS_IO_INSTANCE* p)
                                 {
                                     {
                                         LogInfo("Socket Connect OK");
+                                        wolfSSL_CTX_set_verify(ctx,SSL_VERIFY_NONE,0);
                                         ssl = wolfSSL_new(ctx);
                                         //LogInfo("after ssl new");
                                         if (ssl == NULL) {
@@ -610,7 +602,6 @@ int tlsio_openssl_open(CONCRETE_IO_HANDLE tls_io, ON_IO_OPEN_COMPLETE on_io_open
             do {
                 //LogInfo("size before netconn_gethostbyname: %d", system_get_free_heap_size());
                 ret = netconn_gethostbyname(tls_io_instance->hostname, &tls_io_instance->target_ip);
-                printf(">>>>>>>>>>>>>>>>>>%s\r\n",tls_io_instance->hostname);
             } while((ret != 0) && netconn_retry++ < MAX_RETRY);
             
             if (ret != 0 || openssl_thread_LWIP_CONNECTION(tls_io_instance) != 0){

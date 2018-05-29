@@ -120,6 +120,10 @@ ASN Options:
 #endif
 
 #define ERROR_OUT(err, eLabel) { ret = (err); goto eLabel; }
+#ifdef INLINE
+#undef INLINE
+#endif // DEBUG
+#define INLINE static __inline
 
 WOLFSSL_LOCAL int GetLength(const byte* input, word32* inOutIdx, int* len,
                            word32 maxIdx)
@@ -3471,7 +3475,7 @@ static mp_int* GetDsaInt(DsaKey* key, int idx)
 }
 
 /* Release Tmp DSA resources */
-static INLINE void FreeTmpDsas(byte** tmps, void* heap)
+INLINE void FreeTmpDsas(byte** tmps, void* heap)
 {
     int i;
 
@@ -4363,7 +4367,7 @@ static int GetName(DecodedCert* cert, int nameType)
 #ifndef NO_ASN_TIME
 
 /* two byte date/time, add to value */
-static INLINE void GetTime(int* value, const byte* date, int* idx)
+INLINE void GetTime(int* value, const byte* date, int* idx)
 {
     int i = *idx;
 
@@ -4480,7 +4484,7 @@ static int DateGreaterThan(const struct tm* a, const struct tm* b)
 }
 
 
-static INLINE int DateLessThan(const struct tm* a, const struct tm* b)
+INLINE int DateLessThan(const struct tm* a, const struct tm* b)
 {
     return DateGreaterThan(b,a);
 }
@@ -4912,7 +4916,7 @@ static int SetCurve(ecc_key* key, byte* output)
 
 
 #ifdef HAVE_ECC
-static INLINE int IsSigAlgoECDSA(int algoOID)
+INLINE int IsSigAlgoECDSA(int algoOID)
 {
     /* ECDSA sigAlgo must not have ASN1 NULL parameters */
     if (algoOID == CTC_SHAwECDSA || algoOID == CTC_SHA256wECDSA ||
@@ -7877,7 +7881,7 @@ int wc_PemToDer(const unsigned char* buff, long longSz, int type,
 
 
 /* our KeyPemToDer password callback, password in userData */
-static INLINE int OurPasswordCb(char* passwd, int sz, int rw, void* userdata)
+INLINE int OurPasswordCb(char* passwd, int sz, int rw, void* userdata)
 {
     (void)rw;
 
@@ -8347,7 +8351,7 @@ static mp_int* GetRsaInt(RsaKey* key, int idx)
 
 
 /* Release Tmp RSA resources */
-static INLINE void FreeTmpRsas(byte** tmps, void* heap)
+INLINE void FreeTmpRsas(byte** tmps, void* heap)
 {
     int i;
 
@@ -8811,7 +8815,7 @@ int wc_Ed25519PublicKeyToDer(ed25519_key* key, byte* output, word32 inLen,
 
 #ifdef WOLFSSL_CERT_GEN
 
-static INLINE byte itob(int number)
+INLINE byte itob(int number)
 {
     return (byte)number + 0x30;
 }

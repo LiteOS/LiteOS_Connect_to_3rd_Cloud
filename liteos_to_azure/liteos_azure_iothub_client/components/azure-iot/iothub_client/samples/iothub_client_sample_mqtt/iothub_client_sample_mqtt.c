@@ -13,7 +13,7 @@
 #include "iothubtransportmqtt.h"
 #include "iothub_client_options.h"
 
-#ifdef MBED_BUILD_TIMESTAMP
+#if 1//def MBED_BUILD_TIMESTAMP
 #define SET_TRUSTED_CERT_IN_SAMPLES
 #endif // MBED_BUILD_TIMESTAMP
 

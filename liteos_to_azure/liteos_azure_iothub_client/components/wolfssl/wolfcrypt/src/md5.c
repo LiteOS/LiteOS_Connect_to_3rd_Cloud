@@ -44,6 +44,10 @@
     #define WOLFSSL_MISC_INCLUDED
     #include <wolfcrypt/src/misc.c>
 #endif
+#ifdef INLINE
+#undef INLINE
+#endif // DEBUG
+#define INLINE static __inline
 
 
 /* Hardware Acceleration */
@@ -234,7 +238,7 @@
 
 #ifndef HAVE_MD5_CUST_API
 
-static INLINE void AddLength(wc_Md5* md5, word32 len)
+INLINE void AddLength(wc_Md5* md5, word32 len)
 {
     word32 tmp = md5->loLen;
     if ((md5->loLen += len) < tmp) {

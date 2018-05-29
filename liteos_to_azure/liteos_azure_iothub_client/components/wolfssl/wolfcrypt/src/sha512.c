@@ -25,6 +25,10 @@
 #endif
 
 #include <wolfssl/wolfcrypt/settings.h>
+#ifdef INLINE
+#undef INLINE
+#endif // DEBUG
+#define INLINE static __inline
 
 #ifdef WOLFSSL_SHA512
 #include <wolfssl/wolfcrypt/sha512.h>
@@ -504,14 +508,14 @@ static int _Transform_Sha512(wc_Sha512* sha512)
 }
 
 
-static INLINE void AddLength(wc_Sha512* sha512, word32 len)
+INLINE void AddLength(wc_Sha512* sha512, word32 len)
 {
     word64 tmp = sha512->loLen;
     if ( (sha512->loLen += len) < tmp)
         sha512->hiLen++;                       /* carry low to high */
 }
 
-static INLINE int Sha512Update(wc_Sha512* sha512, const byte* data, word32 len)
+INLINE int Sha512Update(wc_Sha512* sha512, const byte* data, word32 len)
 {
     int ret = 0;
     /* do block size increments */
@@ -628,7 +632,7 @@ int wc_Sha512Update(wc_Sha512* sha512, const byte* data, word32 len)
 }
 #endif /* WOLFSSL_IMX6_CAAM */
 
-static INLINE int Sha512Final(wc_Sha512* sha512)
+INLINE int Sha512Final(wc_Sha512* sha512)
 {
     byte* local = (byte*)sha512->buffer;
     int ret;

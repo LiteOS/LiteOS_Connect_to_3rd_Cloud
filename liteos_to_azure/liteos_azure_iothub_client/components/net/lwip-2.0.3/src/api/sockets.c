@@ -753,16 +753,13 @@ lwip_recvfrom(int s, void *mem, size_t len, int flags,
   err_t            err;
 
   LWIP_DEBUGF(SOCKETS_DEBUG, ("lwip_recvfrom(%d, %p, %"SZT_F", 0x%x, ..)\n", s, mem, len, flags));
-    printf(">>>>>>>>>>>>>>>>>>>>lwip_recvfrom(%d, %p, %"SZT_F", 0x%x, ..)\r\n", s, mem, len, flags);
   sock = get_socket(s);
   if (!sock) {
-    printf(">>>>>>>>>>>>>>>>>>>>lwip_recvfrom line=%d !sock\r\n",__LINE__);
     return -1;
   }
 
   do {
     LWIP_DEBUGF(SOCKETS_DEBUG, ("lwip_recvfrom: top while sock->lastdata=%p\n", sock->lastdata));
-    printf(">>>>>>>>>>>>>>>>>>>>lwip_recvfrom: top while sock->lastdata=%p\n", sock->lastdata);
     /* Check if there is data left from the last recv operation. */
     if (sock->lastdata) {
       buf = sock->lastdata;
@@ -776,9 +773,7 @@ lwip_recvfrom(int s, void *mem, size_t len, int flags,
           return off;
         }
         LWIP_DEBUGF(SOCKETS_DEBUG, ("lwip_recvfrom(%d): returning EWOULDBLOCK\n", s));
-    printf(">>>>>>>>>>>>>>>>>>>>lwip_recvfrom(%d): returning EWOULDBLOCK\n", s);
         set_errno(EWOULDBLOCK);
-    printf(">>>>>>>>>>>>>>>>>>>>lwip_recvfrom line=%d sock->rcvevent <= 0\r\n",__LINE__);
         return -1;
       }
 
@@ -809,7 +804,6 @@ lwip_recvfrom(int s, void *mem, size_t len, int flags,
         if (err == ERR_CLSD) {
           return 0;
         } else {
-    printf(">>>>>>>>>>>>>>>>>>>>lwip_recvfrom line=%d err == ERR_CLSD\r\n",__LINE__);
           return -1;
         }
       }
@@ -919,7 +913,6 @@ lwip_recvfrom(int s, void *mem, size_t len, int flags,
   } while (!done);
 
   sock_set_errno(sock, 0);
-    printf(">>>>>>>>>>>>>>>>>>>>lwip_recvfrom line=%d off=%d\r\n",__LINE__,off);
   return off;
 }
 
@@ -2211,13 +2204,11 @@ lwip_setsockopt(int s, int level, int optname, const void *optval, socklen_t opt
 #endif /* !LWIP_TCPIP_CORE_LOCKING */
 
   if (!sock) {
-    printf(">>>>>>>>>>>>>>>>>>>>lwip_setsockopt line=%d\r\n",__LINE__);
     return -1;
   }
 
   if (NULL == optval) {
     sock_set_errno(sock, EFAULT);
-    printf(">>>>>>>>>>>>>>>>>>>>lwip_setsockopt line=%d\r\n",__LINE__);
     return -1;
   }
 
@@ -2302,7 +2293,6 @@ lwip_setsockopt_impl(int s, int level, int optname, const void *optval, socklen_
   u8_t err = 0;
   struct lwip_sock *sock = tryget_socket(s);
   if (!sock) {
-    printf(">>>>>>>>>>>>>>>>>>>>lwip_setsockopt_impl line=%d\r\n",__LINE__);
     return EBADF;
   }
 
@@ -2620,7 +2610,6 @@ lwip_setsockopt_impl(int s, int level, int optname, const void *optval, socklen_
     err = ENOPROTOOPT;
     break;
   }  /* switch (level) */
-    printf(">>>>>>>>>>>>>>>>>>>>lwip_setsockopt_impl line=%d err=%d\r\n",__LINE__,err);
 
   return err;
 }

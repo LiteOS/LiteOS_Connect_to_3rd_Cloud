@@ -1,7 +1,7 @@
 ## 一、背景和介绍
 ### 1、公司/团队介绍
 
-个人利用业余时间参与活动
+张新灵，嵌入式软件工程师，做过的产品有 指纹门禁/手机/可穿戴设备/360度辅助驾驶系统/OBDII诊断仪/电动汽车充电桩等
 
 ### 2、项目介绍
 
@@ -21,7 +21,7 @@ LiteOS对接微软Azure IoT中心
 
 （3）Azure IoT简单介绍
 
-azure物联网提供有 IoT套件/IoT中心/事件中心/流分析/通知中心，可对接的协议有 mqtt/amqp/http等
+azure物联网提供有 IoT套件/IoT中心/事件中心/流分析/通知中心，可对接的协议有 mqtt/amqp/https等
 
 ### 2. 硬件方案
 
@@ -38,6 +38,7 @@ azure物联网提供有 IoT套件/IoT中心/事件中心/流分析/通知中心�
   - `iothub_client` 应用层接口
   - `umqtt` MQTT协议
   - `parson` JSON解析
+  - `certs` 证书
 
 - wolfssl
 
@@ -51,6 +52,7 @@ azure物联网提供有 IoT套件/IoT中心/事件中心/流分析/通知中心�
 **几个坑**
 1. 注册完成后会扣1单位当地货币，主要选择国内站点注册
 2. 微软账户和门户是不同的账户。一定要分清楚了！！！注册完成后的id类似cietest.partner.onmschina.cn，一定要记住了！！！！！！！！！！！！！！！！！
+3. 如果遇到点击无反应，清理cookie和缓存再试试
 
 ### 创建 Aure IoT中心
 
@@ -202,6 +204,7 @@ gif动画演示在本文档同级目录meta/azure-virtual-equipment-device-explo
 
 - iothub_client_sample_mqtt.c
   - 入口 `iothub_client_sample_mqtt_run()`
+  - 连接字符串 `connectionString`
 
 ### 5. 踩过的坑
 - 因为用malloc/realloc分配不到内存，写了platform_malloc/platform_realloc/platorm_free, 将 azure-iot-sdk-c 和 woflSSl 的 malloc/realloc/free 全部置换为 platform_malloc/platform_realloc/ platform_free
@@ -222,10 +225,41 @@ gif动画演示在本文档同级目录meta/azure-virtual-equipment-device-explo
 - 在wc_InitMutex中，LOS_SemCreate创建成功后LOS_SemPost，否则在wc_LockMutex中task会一直等待
 - sockets.c中定义了自己的errno`int errno;`导致在EmbedReceive中`int err = wolfSSL_LastError();`返回值一直为0。将自定义的errno注释掉即可返回正确的值。或者用`(*(volatile int *) __aeabi_errno_addr()) `替换`errno`也是可以的
 - 目前 ssl 连接失败，查看原因是 没有签名者确认（？）
+- 加入证书，打开证书编译的宏SET_TRUSTED_CERT_IN_SAMPLES，仍然返回错误代码-188
+- 看wolfSSL根目录下的readme，有如下一段note，照做
+```
+wolfSSL takes a different approach to certificate verification than OpenSSL
+does.  The default policy for the client is to verify the server, this means
+that if you don't load CAs to verify the server you'll get a connect error,
+no signer error to confirm failure (-188).  If you want to mimic OpenSSL
+behavior of having SSL_connect succeed even if verifying the server fails and
+reducing security you can do this by calling:
 
-![](./meta/azure-connect-string.png)
+wolfSSL_CTX_set_verify(ctx, SSL_VERIFY_NONE, 0);
 
-- 已经到deadline了，没有时间继续调试了
+before calling wolfSSL_new();  Though it's not recommended.
+```
+- 这一次，出现了新的问题
+
+```
+osHwiDefaultHandler irqnum:3
+```
+- 对应的是
+
+```
+// [3] Hard Fault Handler
+```
+
+- 硬件错误，是个什么鬼
+- 添加打印信息，一步步的追踪，发现并不总是在相同的位置宕机，想到一个可能，是不是stack太小了
+- 原来task的stack为4096，改为8192，再试，还是会宕机。不过，打印的信息多了很多，有戏。然后把stack sizes改为16384，这一次不宕机了，并且在deviceexplorer可以观察到发送的消息了。
+- 真不敢相信，azure iot sdk这么消耗stack。编写sdk的人都是在pc上编程的，很多变量、数组都是在函数里声明。没考虑到嵌入式系统内存小的问题。
+- 再来吐槽一下微软 azure 的技术支持
+  - 每天下班前回复一次且仅一次Email，经常这样
+  - 周六周天无人值班
+  - 对于提出的问题不予直接回答，总是提出各种想法让你跟着他的思路去验证。时间就这么耗过去了。
+  - 和我说，不熟悉wolfSSL，建议我移植openSSL，等我移植好了又不再建言了。
+  - 感觉微软 azure 在本土化、服务、嵌入式方面还有很多亟待改进的地方。
 
 ## 五、产品调试
 
@@ -233,9 +267,19 @@ gif动画演示在本文档同级目录meta/azure-virtual-equipment-device-explo
 
 板子连线如上图
 
-调试动画在本文档同级目录下的meta/degug.gif
+调试动画在本文档同级目录下的meta/debug.gif
 
-下载完毕后按RESET即可运行代码
+由于没有安装DHCP，需要手动设置IP地址。在`sys_init.c`中的函数 `net_init()`里设置
+
+全编译，下载完毕后按RESET即可运行代码
+
+过程有点慢，耐心等待一会
+
+通过deviceexplorer可观察到发送的消息
+![](./meta/device-explorer-data.png)
+
+在 azure 门户可看到设备状态
+![](./meta/azure-portal-device-explorer.png)
 
 ## 六、第三方云平台能力展示
 

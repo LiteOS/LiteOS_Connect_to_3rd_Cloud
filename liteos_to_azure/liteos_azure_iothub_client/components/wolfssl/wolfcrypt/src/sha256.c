@@ -119,6 +119,10 @@
 #if defined(HAVE_INTEL_AVX2)
     #define HAVE_INTEL_RORX
 #endif
+#ifdef INLINE
+#undef INLINE
+#endif // DEBUG
+#define INLINE static __inline
 
 
 #if !defined(WOLFSSL_PIC32MZ_HASH) && !defined(STM32_HASH_SHA2) && \
@@ -559,14 +563,14 @@ static int InitSha256(wc_Sha256* sha256)
 
 #ifdef XTRANSFORM
 
-    static INLINE void AddLength(wc_Sha256* sha256, word32 len)
+    INLINE void AddLength(wc_Sha256* sha256, word32 len)
     {
         word32 tmp = sha256->loLen;
         if ((sha256->loLen += len) < tmp)
             sha256->hiLen++;                       /* carry low to high */
     }
 
-    static INLINE int Sha256Update(wc_Sha256* sha256, const byte* data, word32 len)
+    INLINE int Sha256Update(wc_Sha256* sha256, const byte* data, word32 len)
     {
         int ret = 0;
         byte* local;
@@ -689,7 +693,7 @@ static int InitSha256(wc_Sha256* sha256)
         return Sha256Update(sha256, data, len);
     }
 
-    static INLINE int Sha256Final(wc_Sha256* sha256)
+    INLINE int Sha256Final(wc_Sha256* sha256)
     {
 
         int ret;

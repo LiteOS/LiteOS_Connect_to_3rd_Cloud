@@ -34,6 +34,10 @@
 #include <wolfssl/wolfcrypt/random.h>
 #include <wolfssl/wolfcrypt/cpuid.h>
 
+#ifdef INLINE
+#undef INLINE
+#endif // DEBUG
+#define INLINE static __inline
 
 #ifdef HAVE_FIPS
 int wc_GenerateSeed(OS_Seed* os, byte* seed, word32 sz)
@@ -311,7 +315,7 @@ int wc_RNG_DRBG_Reseed(WC_RNG* rng, const byte* entropy, word32 entropySz)
     return Hash_DRBG_Reseed(rng->drbg, entropy, entropySz);
 }
 
-static INLINE void array_add_one(byte* data, word32 dataSz)
+INLINE void array_add_one(byte* data, word32 dataSz)
 {
     int i;
 
@@ -392,7 +396,7 @@ static int Hash_gen(DRBG* drbg, byte* out, word32 outSz, const byte* V)
     return (ret == 0) ? DRBG_SUCCESS : DRBG_FAILURE;
 }
 
-static INLINE void array_add(byte* d, word32 dLen, const byte* s, word32 sLen)
+INLINE void array_add(byte* d, word32 dLen, const byte* s, word32 sLen)
 {
     word16 carry = 0;
 
@@ -1004,7 +1008,7 @@ int wc_FreeNetRandom(void)
 #ifdef HAVE_INTEL_RDSEED
 
 /* return 0 on success */
-static INLINE int IntelRDseed64(word64* seed)
+INLINE int IntelRDseed64(word64* seed)
 {
     unsigned char ok;
 
@@ -1013,7 +1017,7 @@ static INLINE int IntelRDseed64(word64* seed)
 }
 
 /* return 0 on success */
-static INLINE int IntelRDseed64_r(word64* rnd)
+INLINE int IntelRDseed64_r(word64* rnd)
 {
     int i;
     for (i = 0; i < INTELRD_RETRY; i++) {
@@ -1058,7 +1062,7 @@ static int wc_GenerateSeed_IntelRD(OS_Seed* os, byte* output, word32 sz)
 #ifdef HAVE_INTEL_RDRAND
 
 /* return 0 on success */
-static INLINE int IntelRDrand64(word64 *rnd)
+INLINE int IntelRDrand64(word64 *rnd)
 {
     unsigned char ok;
 
@@ -1068,7 +1072,7 @@ static INLINE int IntelRDrand64(word64 *rnd)
 }
 
 /* return 0 on success */
-static INLINE int IntelRDrand64_r(word64 *rnd)
+INLINE int IntelRDrand64_r(word64 *rnd)
 {
     int i;
     for (i = 0; i < INTELRD_RETRY; i++) {

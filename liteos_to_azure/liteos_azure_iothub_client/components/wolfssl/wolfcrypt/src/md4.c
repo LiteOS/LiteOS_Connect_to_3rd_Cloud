@@ -35,6 +35,10 @@
     #define WOLFSSL_MISC_INCLUDED
     #include <wolfcrypt/src/misc.c>
 #endif
+#ifdef INLINE
+#undef INLINE
+#endif // DEBUG
+#define INLINE static __inline
 
 
 void wc_InitMd4(Md4* md4)
@@ -130,7 +134,7 @@ static void Transform(Md4* md4)
 }
 
 
-static INLINE void AddLength(Md4* md4, word32 len)
+INLINE void AddLength(Md4* md4, word32 len)
 {
     word32 tmp = md4->loLen;
     if ( (md4->loLen += len) < tmp)

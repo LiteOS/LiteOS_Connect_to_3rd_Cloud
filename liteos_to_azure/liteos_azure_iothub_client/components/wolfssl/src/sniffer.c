@@ -30,7 +30,7 @@
 #ifdef WOLFSSL_SNIFFER
 
 #include <assert.h>
-#include <time.h>
+//#include <time.h>
 
 #ifndef _WIN32
   #include <arpa/inet.h>
